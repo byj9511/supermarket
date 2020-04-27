@@ -1,0 +1,37 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: product
+          uri: lb://product
+          predicates:
+            - Path=/api/product/**
+          filters:
+#https://www.cnblogs.com/yw0219/p/8047938.html 正则表达式
+            - RewritePath=/api/(?<path>.*),/$\{path}
+        - id: renren
+          uri: lb://renren
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<path>.*),/renren-fast/$\{path}
+
+#      跨域请求配置
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            # 跨域允许的消息头
+            allowed-headers: "*"
+            # 允许跨域的源(网站域名/ip)，设置*为全部
+            allowedOrigins: "*"
+            # 允许跨域的method， 默认为GET和OPTIONS，设置*为全部
+            allowedMethods: "*"
+            # 允许携带认证信息
+            allow-credentials: true
+
+
+server:
+  port: 80

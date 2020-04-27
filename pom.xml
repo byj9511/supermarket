@@ -19,6 +19,7 @@
         <module>renren-generator</module>
         <module>ware</module>
         <module>market_commons</module>
+        <module>gateway</module>
     </modules>
     <!--2、编译器版本-->
     <properties>
