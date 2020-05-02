@@ -1,0 +1,18 @@
+
+#  cloud:
+#    nacos:
+#      config:
+#        server-addr: 192.168.1.104:8848
+
+
+
+server:
+  port: 9001
+spring:
+  cloud:
+    alicloud:
+      oss:
+        bucket: byy-product
+        endpoint: "oss-cn-shanghai.aliyuncs.com"
+      access-key: LTAI4GK32VvkyhJ7XN2udqtW
+      secret-key: WIQksaITeucbZYrr20Cb24MzfjQkqG

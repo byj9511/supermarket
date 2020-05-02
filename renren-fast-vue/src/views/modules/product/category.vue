@@ -1,5 +1,8 @@
 <template>
   <div>
+    <el-row>
+      <el-button type="danger" icon="el-icon-delete" circle @click="this.deleteBatchIds"/>
+    </el-row>
     <el-tree
       :data="menus"
       :props="categoryProps"
@@ -54,7 +57,7 @@
 <script>
   export default {
 
-    data() {
+    data () {
       return {
         menus: [],
         categoryProps: {
@@ -73,106 +76,130 @@
           parentCid: 0,
           showStatus: 1,
           sort: 0,
-          catLevel: '',
+          catLevel: ''
         }
       }
     },
     methods: {
-      getCategory() {
+      getCategory () {
         this.$http({
           url: this.$http.adornUrl('/product/category/list/tree'),
-          method: 'get',
+          method: 'get'
           //  此处用到了JS的解构，和python拆包类似
         }).then(({data}) => {
           // console.log(data.tree)
           this.menus = data.tree
         })
       },
-      append(data) {
-        this.form.title = '添加分类';
-        this.form.dialogType = 'add';
-        this.category.name = '';
-        this.category.catLevel = data.catLevel + 1;
-        this.category.parentCid = data.catId;
-        //准备完成后显示表单
-        this.form.dialogFormVisible = true;
+      append (data) {
+        this.form.title = '添加分类'
+        this.form.dialogType = 'add'
+        this.category.name = ''
+        this.category.catLevel = data.catLevel + 1
+        this.category.parentCid = data.catId
+        // 准备完成后显示表单
+        this.form.dialogFormVisible = true
       },
-      edit(data) {
-        this.form.title = '修改分类';
-        this.form.dialogType = 'edit';
-        this.category = data;
-        console.log(data);
-        //准备完成后显示表单
-        this.form.dialogFormVisible = true;
+      edit (data) {
+        this.form.title = '修改分类'
+        this.form.dialogType = 'edit'
+        this.category = data
+        console.log(data)
+        // 准备完成后显示表单
+        this.form.dialogFormVisible = true
       },
-      submitForm() {
+      submitForm () {
         if (this.form.dialogType === 'edit') {
-          let method = 'update'
           this.$http({
             url: this.$http.adornUrl('/product/category/update'),
             method: 'post',
             data: this.$http.adornData(this.category, false)
           }).then(() => {
-            //删除后保持展开状态
+            // 删除后保持展开状态
             this.expandkey = [this.category.catId]
-            //更新属性列表
-            this.getCategory();
+            // 更新属性列表
+            this.getCategory()
             this.$message({
               type: 'success',
               message: '修改成功!'
-            });
+            })
           })
         } else {
-          let method = 'save'
           this.$http({
             url: this.$http.adornUrl('/product/category/save'),
             method: 'post',
             data: this.$http.adornData(this.category, false)
           }).then(() => {
-            //删除后保持展开状态
+            // 删除后保持展开状态
             this.expandkey = [this.category.parentCid]
-            //更新属性列表
-            this.getCategory();
+            // 更新属性列表
+            this.getCategory()
             this.$message({
               type: 'success',
               message: '添加成功!'
-            });
+            })
           })
         }
         this.form.dialogFormVisible = false
-      }
-      ,
-      remove(node, data) {
-        console.log(node, data);
-        this.$confirm(`此操作将永久删除[${data.name}], 是否继续?`, '提示', {
+      },
+      deleteBatchIds () {
+        console.log(this.$refs.menus.getCheckedKeys())
+        let batchIds = this.$refs.menus.getCheckedKeys()
+        this.$confirm(`此操作将永久删除[${batchIds}], 是否继续?`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          var ids = [node.data.catId];
           this.$http({
             url: this.$http.adornUrl('/product/category/delete'),
             method: 'post',
-            data: this.$http.adornData(ids, false)
+            data: this.$http.adornData(batchIds, false)
           }).then(() => {
-            //删除后保持展开状态
-            this.expandkey = [node.parent.data.catId];
-            //更新属性列表
-            this.getCategory();
+            // 更新属性列表
+            this.getCategory()
             this.$message({
               type: 'success',
               message: '删除成功!'
-            });
+            })
           })
         }).catch(() => {
           this.$message({
             type: 'info',
             message: '已取消删除'
-          });
-        });
+          })
+        })
+      },
+      remove (node, data) {
+        console.log(node, data)
+        this.$confirm(`此操作将永久删除[${data.name}], 是否继续?`, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          var ids = [node.data.catId]
+          this.$http({
+            url: this.$http.adornUrl('/product/category/delete'),
+            method: 'post',
+            data: this.$http.adornData(ids, false)
+          }).then(() => {
+            // 删除后保持展开状态
+            this.expandkey = [node.parent.data.catId]
+            // 更新属性列表
+            this.getCategory()
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
       }
     },
-    created() {
+    created () {
       this.getCategory()
     }
   }
