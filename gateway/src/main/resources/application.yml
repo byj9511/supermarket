@@ -12,6 +12,14 @@ spring:
           filters:
 #https://www.cnblogs.com/yw0219/p/8047938.html 正则表达式
             - RewritePath=/api/(?<path>.*),/$\{path}
+
+        - id: third-party
+          uri: lb://third-party
+          predicates:
+            - Path= /api/thirdparty/oss/policy/**
+          filters:
+            - RewritePath=/api/thirdparty/(?<path>.*),/$\{path}
+
         - id: renren
           uri: lb://renren
           predicates:
@@ -19,7 +27,9 @@ spring:
           filters:
             - RewritePath=/api/(?<path>.*),/renren-fast/$\{path}
 
-#      跨域请求配置
+
+
+      #      跨域请求配置
       globalcors:
         cors-configurations:
           '[/**]':

@@ -35,7 +35,7 @@ public class brandOSSController {
     public R policy(){
 
         String host = "https://" + bucket + "." + endpoint; // host的格式为 bucketname.endpoint
-        String date = new SimpleDateFormat("yyyy-mm-dd").format(new Date());
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         String dir = date+"/"; // 用户上传文件时指定的前缀。
 
         Map<String, String> respMap = null;
@@ -68,7 +68,7 @@ public class brandOSSController {
         } finally {
             ossClient.shutdown();
         }
-        return R.ok().put("policy",respMap);
+        return R.ok().put("data",respMap);
 
     }
 }

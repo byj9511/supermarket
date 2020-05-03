@@ -41,6 +41,12 @@
         header-align="center"
         align="center"
         label="品牌logo地址">
+        <template slot-scope="scope">
+          <img
+            style="width: 100px; height: 100px"
+            :src="scope.row.logo"
+            ></img>
+        </template>
       </el-table-column>
       <el-table-column
         prop="descript"
@@ -54,7 +60,6 @@
         align="center"
         label="显示状态[0-不显示；1-显示]">
         <template slot-scope="scope">
-
           <el-tooltip :content="'Switch value: ' + scope.row.showStatus" placement="top">
             <el-switch
               v-model="scope.row.showStatus"
