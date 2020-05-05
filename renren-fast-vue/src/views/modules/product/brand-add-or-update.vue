@@ -22,8 +22,8 @@
             v-model="dataForm.showStatus"
             active-color="#13ce66"
             inactive-color="#ff4949"
-            active-value="1"
-            inactive-value="0">
+            :active-value="1"
+            :inactive-value="0">
           </el-switch>
         </el-tooltip>
       </el-form-item>
@@ -46,7 +46,7 @@
 
   export default {
     components: {SingleUpload},
-    data() {
+    data () {
       return {
         visible: false,
         dataForm: {
@@ -82,7 +82,8 @@
                 } else {
                   callback()
                 }
-              }, trigger: 'blur'
+              },
+              trigger: 'blur'
             }
           ],
           sort: [
@@ -96,14 +97,15 @@
                 } else {
                   callback()
                 }
-              }, trigger: 'blur'
+              },
+              trigger: 'blur'
             }
           ]
         }
       }
     },
     methods: {
-      init(id) {
+      init (id) {
         this.dataForm.brandId = id || 0
         this.visible = true
         this.$nextTick(() => {
@@ -127,7 +129,7 @@
         })
       },
       // 表单提交
-      dataFormSubmit() {
+      dataFormSubmit () {
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             this.$http({
@@ -155,6 +157,7 @@
                 })
               } else {
                 this.$message.error(data.msg)
+                console.log(data)
               }
             })
           }

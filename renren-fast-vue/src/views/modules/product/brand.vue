@@ -65,8 +65,8 @@
               v-model="scope.row.showStatus"
               active-color="#13ce66"
               inactive-color="#ff4949"
-              active-value="1"
-              inactive-value="0"
+              :active-value="1"
+              :inactive-value="0"
               @change="updateShowStatus(scope.row)">
             </el-switch>
           </el-tooltip>
@@ -160,11 +160,12 @@
       updateShowStatus (data) {
         console.log(data)
         // eslint-disable-next-line no-unused-vars
-        let {brandID, showStatus} = data
+        let {brandId, showStatus} = data
+        // console.log({brandId, showStatus})
         this.$http({
           url: this.$http.adornUrl('/product/brand/update'),
           method: 'post',
-          data: this.$http.adornData({brandID, showStatus}, false)
+          data: this.$http.adornData({brandId, showStatus}, false)
         })
       },
       // 每页数

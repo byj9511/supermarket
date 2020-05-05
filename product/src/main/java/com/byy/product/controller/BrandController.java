@@ -3,6 +3,8 @@ package com.byy.product.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.byy.common.validate.AddGroup;
+import com.byy.common.validate.UpdateGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +36,8 @@ public class BrandController {
     /**
      * 列表
      */
+
+
     @RequestMapping("/list")
         public R list(@RequestParam Map<String, Object> params){
         PageUtils page = brandService.queryPage(params);
@@ -56,7 +60,7 @@ public class BrandController {
      * 保存
      */
     @RequestMapping("/save")
-        public R save( @Validated @RequestBody BrandEntity brand){
+        public R save( @Validated(AddGroup.class) @RequestBody BrandEntity brand){
 		brandService.save(brand);
 
         return R.ok();
@@ -66,7 +70,7 @@ public class BrandController {
      * 修改
      */
     @RequestMapping("/update")
-        public R update(@RequestBody BrandEntity brand){
+        public R update(@Validated(UpdateGroup.class) @RequestBody BrandEntity brand){
 		brandService.updateById(brand);
 
         return R.ok();

@@ -33,12 +33,12 @@
       },
       imageName () {
         if (this.value != null && this.value !== '') {
-          return this.value.substr(this.value.lastIndexOf("/") + 1);
+          return this.value.substr(this.value.lastIndexOf('/') + 1)
         } else {
-          return null;
+          return null
         }
       },
-      fileList() {
+      fileList () {
         return [{
           name: this.imageName,
           url: this.imageUrl
@@ -46,13 +46,13 @@
       },
       showFileList: {
         get: function () {
-          return this.value !== null && this.value !== '' && this.value !== undefined;
+          return this.value !== null && this.value !== '' && this.value !== undefined
         },
         set: function (newValue) {
         }
       }
     },
-    data() {
+    data () {
       return {
         dataObj: {
           policy: '',
@@ -60,48 +60,49 @@
           key: '',
           ossaccessKeyId: '',
           dir: '',
-          host: '',
+          host: ''
           // callback:'',
         },
         dialogVisible: false
-      };
-    },
+      }
+  },
     methods: {
-      emitInput(val) {
+      emitInput (val) {
         this.$emit('input', val)
       },
-      handleRemove(file, fileList) {
-        this.emitInput('');
+      handleRemove (file, fileList) {
+        this.emitInput('')
       },
-      handlePreview(file) {
-        this.dialogVisible = true;
+      handlePreview (file) {
+        this.dialogVisible = true
       },
-      beforeUpload(file) {
-        let _self = this;
+      beforeUpload (file) {
+        let _self = this
         return new Promise((resolve, reject) => {
           policy().then(response => {
             console.log(response)
-            _self.dataObj.policy = response.data.policy;
-            _self.dataObj.signature = response.data.signature;
-            _self.dataObj.ossaccessKeyId = response.data.accessid;
-            _self.dataObj.key = response.data.dir + getUUID() + '_${filename}';
-            _self.dataObj.dir = response.data.dir;
-            _self.dataObj.host = response.data.host;
+            _self.dataObj.policy = response.data.policy
+            _self.dataObj.signature = response.data.signature
+            _self.dataObj.ossaccessKeyId = response.data.accessid
+            // eslint-disable-next-line no-template-curly-in-string
+            _self.dataObj.key = response.data.dir + getUUID() + '_${filename}'
+            _self.dataObj.dir = response.data.dir
+            _self.dataObj.host = response.data.host
             resolve(true)
           }).catch(err => {
             reject(false)
           })
         })
       },
-      handleUploadSuccess(res, file) {
-        console.log("上传成功...")
-        this.showFileList = true;
-        this.fileList.pop();
+      handleUploadSuccess (res, file) {
+        console.log('上传成功...')
+        this.showFileList = true
+        this.fileList.pop()
         this.fileList.push({
           name: file.name,
-          url: this.dataObj.host + '/' + this.dataObj.key.replace("${filename}", file.name)
-        });
-        this.emitInput(this.fileList[0].url);
+          url: this.dataObj.host + '/' + this.dataObj.key.replace('${filename}', file.name)
+        })
+        this.emitInput(this.fileList[0].url)
       }
     }
   }
