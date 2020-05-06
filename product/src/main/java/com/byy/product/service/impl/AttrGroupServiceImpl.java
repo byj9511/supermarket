@@ -1,6 +1,12 @@
 package com.byy.product.service.impl;
 
+import com.byy.product.dao.CategoryDao;
+import com.byy.product.entity.CategoryEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -48,6 +54,25 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
                 wrapper
         );
         return new PageUtils(page);
+    }
+
+    @Autowired
+    CategoryDao categoryDao;
+
+    @Override
+    public Long[] getCatelogPath(Long catelogId) {
+        ArrayList<Long> CatelogPath = new ArrayList();
+        doGetCatelogPath(catelogId,CatelogPath);
+        return CatelogPath.toArray(new Long[CatelogPath.size()] );
+
+    }
+    private void doGetCatelogPath(Long catelogId, List<Long>CatelogPath){
+        if (catelogId!=0){
+            CategoryEntity categoryEntity = categoryDao.selectById(catelogId);
+            doGetCatelogPath(categoryEntity.getParentCid(),CatelogPath);
+            CatelogPath.add(categoryEntity.getCatId());
+        }
+        return;
     }
 
 }

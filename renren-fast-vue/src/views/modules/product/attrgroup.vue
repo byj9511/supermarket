@@ -5,12 +5,12 @@
     </el-col>
     <el-col :span="18">
       <div class="mod-config">
-        <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
+        <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList">
           <el-form-item>
             <el-input v-model="dataForm.key" placeholder="参数名" clearable></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button @click="getDataList()">查询</el-button>
+            <el-button @click="getDataList">查询</el-button>
             <el-button v-if="isAuth('product:attrgroup:save')" type="primary" @click="addOrUpdateHandle()">新增
             </el-button>
             <el-button v-if="isAuth('product:attrgroup:delete')" type="danger" @click="deleteHandle()"
@@ -88,7 +88,8 @@
           layout="total, sizes, prev, pager, next, jumper">
         </el-pagination>
         <!-- 弹窗, 新增 / 修改 -->
-        <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
+        <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate"
+                       @refreshDataList="refreshAfterSubmit"></add-or-update>
       </div>
     </el-col>
 
@@ -116,7 +117,7 @@
         totalPage: 0,
         dataListLoading: false,
         dataListSelections: [],
-        addOrUpdateVisible: false
+        addOrUpdateVisible: false,
       }
     },
     activated () {
@@ -127,8 +128,13 @@
         // console.log('父组件被点击', data, node, component)
         if (node.childNodes.length === 0) {
           this.catId = data.catId
+          // console.log(data)
           this.getDataList()
         }
+      },
+      refreshAfterSubmit (catelogId) {
+        this.catId = catelogId
+        this.getDataList()
       },
       // 获取数据列表
       getDataList () {

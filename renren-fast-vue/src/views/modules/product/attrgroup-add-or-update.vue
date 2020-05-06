@@ -2,6 +2,7 @@
   <el-dialog
     :title="!dataForm.id ? '新增' : '修改'"
     :close-on-click-modal="false"
+    @close="dialogClose"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()"
              label-width="120px">
@@ -18,7 +19,9 @@
         <el-input v-model="dataForm.icon" placeholder="组图标"></el-input>
       </el-form-item>
       <el-form-item label="所属分类id" prop="catelogId">
-        <el-cascader v-model="dataForm.catelogIds" :options="categories" :show-all-levels="false" :props="categoriesProps"></el-cascader>
+        <el-cascader v-model="dataForm.catelogIds" :options="categories" :show-all-levels="false" filterable
+                     placeholder="尝试搜索：手机"
+                     :props="categoriesProps"></el-cascader>
         <!--      <el-input v-model="dataForm.catelogId" placeholder="所属分类id"></el-input>-->
 
       </el-form-item>
@@ -86,10 +89,14 @@
                 this.dataForm.descript = data.attrGroup.descript
                 this.dataForm.icon = data.attrGroup.icon
                 this.dataForm.catelogId = data.attrGroup.catelogId
+                this.dataForm.catelogIds = data.attrGroup.catelogPath
               }
             })
           }
         })
+      },
+      dialogClose() {
+        this.catelogIds = []
       },
       getCategory() {
         this.$http({
@@ -99,7 +106,7 @@
         }).then(({data}) => {
           // console.log(data.tree)
           this.categories = data.tree
-          console.log(this.categories)
+          // console.log(this.categories)
         })
       },
       // 表单提交
@@ -125,7 +132,7 @@
                   duration: 1500,
                   onClose: () => {
                     this.visible = false
-                    this.$emit('refreshDataList')
+                    this.$emit('refreshDataList', this.catelogId)
                   }
                 })
               } else {

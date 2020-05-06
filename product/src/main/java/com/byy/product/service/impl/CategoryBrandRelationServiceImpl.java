@@ -1,5 +1,10 @@
 package com.byy.product.service.impl;
 
+import com.byy.product.dao.BrandDao;
+import com.byy.product.dao.CategoryDao;
+import com.byy.product.entity.BrandEntity;
+import com.byy.product.entity.CategoryEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -26,4 +31,25 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
         return new PageUtils(page);
     }
 
-}
+    @Autowired
+    CategoryDao categoryDao;
+    @Autowired
+    BrandDao brandDao;
+    @Override
+    public void saveDetails(CategoryBrandRelationEntity categoryBrandRelation) {
+        CategoryEntity categoryEntity = categoryDao.selectById(categoryBrandRelation.getCatelogId());
+        categoryBrandRelation.setCatelogName(categoryEntity.getName());
+        BrandEntity brandEntity = brandDao.selectById(categoryBrandRelation.getBrandId());
+        categoryBrandRelation.setBrandName(brandEntity.getName());
+        this.save(categoryBrandRelation);
+    }
+
+    @Override
+    public void updateByBrandId(BrandEntity brand) {
+        CategoryBrandRelationEntity categoryBrandRelationEntity = new CategoryBrandRelationEntity();
+        categoryBrandRelationEntity.setBrandName(brand.getName());
+        categoryBrandRelationEntity.setBrandId(brand.getBrandId());
+        QueryWrapper<CategoryBrandRelationEntity> wrapper = new QueryWrapper<>();
+        wrapper.eq("brand_id", brand.getBrandId());
+        this.update(categoryBrandRelationEntity,wrapper);
+    }

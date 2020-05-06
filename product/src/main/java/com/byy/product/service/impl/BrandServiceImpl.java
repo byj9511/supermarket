@@ -1,5 +1,8 @@
 package com.byy.product.service.impl;
 
+import com.byy.product.dao.CategoryBrandRelationDao;
+import com.byy.product.service.CategoryBrandRelationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -24,6 +27,13 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
         );
 
         return new PageUtils(page);
+    }
+
+    @Autowired
+    CategoryBrandRelationService categoryBrandRelationService;
+    @Override
+    public void updateCategoryBrandRelation(BrandEntity brand) {
+        categoryBrandRelationService.updateByBrandId(brand);
     }
 
 }
