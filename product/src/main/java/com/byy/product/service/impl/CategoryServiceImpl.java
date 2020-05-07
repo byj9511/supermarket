@@ -1,5 +1,7 @@
 package com.byy.product.service.impl;
 
+import com.byy.product.dao.CategoryBrandRelationDao;
+import com.byy.product.service.CategoryBrandRelationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +45,13 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
             return menu1.getSort() - menu2.getSort();
         }).collect(Collectors.toList());
         return entities;
+    }
+
+    @Autowired
+    CategoryBrandRelationService categoryBrandRelationService;
+    @Override
+    public void updateCategoryBrandRelation(CategoryEntity category) {
+        categoryBrandRelationService.updateByCategory(category);
     }
 
     private List<CategoryEntity> getChildren(CategoryEntity parent, List<CategoryEntity> all) {

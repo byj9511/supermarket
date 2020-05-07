@@ -10,7 +10,8 @@
             <el-input v-model="dataForm.key" placeholder="参数名" clearable></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button @click="getDataList">查询</el-button>
+            <el-button @click="getDataList">查询属性名或ID</el-button>
+            <el-button type="success" @click="getAllDataList()">查询全部</el-button>
             <el-button v-if="isAuth('product:attrgroup:save')" type="primary" @click="addOrUpdateHandle()">新增
             </el-button>
             <el-button v-if="isAuth('product:attrgroup:delete')" type="danger" @click="deleteHandle()"
@@ -71,9 +72,16 @@
             header-align="center"
             align="center"
             width="150"
-            label="操作">
+            label="操作"
+          >
             <template slot-scope="scope">
-              <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.attrGroupId)">修改</el-button>
+              <el-button type="text" size="small" @click="relationHandle(scope.row.attrGroupId)">关联</el-button>
+              <el-button
+                type="text"
+                size="small"
+                @click="addOrUpdateHandle(scope.row.attrGroupId)"
+              >修改
+              </el-button>
               <el-button type="text" size="small" @click="deleteHandle(scope.row.attrGroupId)">删除</el-button>
             </template>
           </el-table-column>
@@ -90,6 +98,8 @@
         <!-- 弹窗, 新增 / 修改 -->
         <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate"
                        @refreshDataList="refreshAfterSubmit"></add-or-update>
+        <!-- 修改关联关系 -->
+        <relation-update v-if="relationVisible" ref="relationUpdate" @refreshData="getDataList"></relation-update>
       </div>
     </el-col>
 
@@ -99,12 +109,13 @@
 <script>
   import category from '../components/category'
   import AddOrUpdate from './attrgroup-add-or-update.vue'
+  import RelationUpdate from "./attr-group-relation";
 
   export default {
     name: 'attrgroup',
-    components: {category, AddOrUpdate},
+    components: {category, AddOrUpdate, RelationUpdate},
 
-    data () {
+    data() {
       return {
 
         catId: 0,
@@ -118,13 +129,14 @@
         dataListLoading: false,
         dataListSelections: [],
         addOrUpdateVisible: false,
+        relationVisible: false
       }
     },
-    activated () {
+    activated() {
       this.getDataList()
     },
     methods: {
-      treeNodeClick (data, node, component) {
+      treeNodeClick(data, node, component) {
         // console.log('父组件被点击', data, node, component)
         if (node.childNodes.length === 0) {
           this.catId = data.catId
@@ -132,12 +144,23 @@
           this.getDataList()
         }
       },
-      refreshAfterSubmit (catelogId) {
-        this.catId = catelogId
+      refreshAfterSubmit(catelogId) {
+        this.catId = catelogId || 0
+        console.log(this.catId)
         this.getDataList()
       },
+      relationHandle(groupId) {
+        this.relationVisible = true;
+        this.$nextTick(() => {
+          this.$refs.relationUpdate.init(groupId);
+        });
+      },
+      getAllDataList() {
+        this.catId = 0;
+        this.getDataList();
+      },
       // 获取数据列表
-      getDataList () {
+      getDataList() {
         this.dataListLoading = true
         this.$http({
           url: this.$http.adornUrl(`/product/attrgroup/list/${this.catId}`),
@@ -159,29 +182,29 @@
         })
       },
       // 每页数
-      sizeChangeHandle (val) {
+      sizeChangeHandle(val) {
         this.pageSize = val
         this.pageIndex = 1
         this.getDataList()
       },
       // 当前页
-      currentChangeHandle (val) {
+      currentChangeHandle(val) {
         this.pageIndex = val
         this.getDataList()
       },
       // 多选
-      selectionChangeHandle (val) {
+      selectionChangeHandle(val) {
         this.dataListSelections = val
       },
       // 新增 / 修改
-      addOrUpdateHandle (id) {
+      addOrUpdateHandle(id) {
         this.addOrUpdateVisible = true
         this.$nextTick(() => {
           this.$refs.addOrUpdate.init(id)
         })
       },
       // 删除
-      deleteHandle (id) {
+      deleteHandle(id) {
         var ids = id ? [id] : this.dataListSelections.map(item => {
           return item.attrGroupId
         })

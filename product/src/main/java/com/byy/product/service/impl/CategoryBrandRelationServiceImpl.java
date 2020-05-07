@@ -35,6 +35,7 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
     CategoryDao categoryDao;
     @Autowired
     BrandDao brandDao;
+
     @Override
     public void saveDetails(CategoryBrandRelationEntity categoryBrandRelation) {
         CategoryEntity categoryEntity = categoryDao.selectById(categoryBrandRelation.getCatelogId());
@@ -51,5 +52,11 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
         categoryBrandRelationEntity.setBrandId(brand.getBrandId());
         QueryWrapper<CategoryBrandRelationEntity> wrapper = new QueryWrapper<>();
         wrapper.eq("brand_id", brand.getBrandId());
-        this.update(categoryBrandRelationEntity,wrapper);
+        this.update(categoryBrandRelationEntity, wrapper);
     }
+
+    @Override
+    public void updateByCategory(CategoryEntity category) {
+        this.brandDao.updateByCategory(category.getCatId(),category.getName());
+    }
+}

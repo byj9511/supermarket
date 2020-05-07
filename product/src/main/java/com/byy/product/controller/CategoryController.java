@@ -72,7 +72,7 @@ public class CategoryController {
     @RequestMapping("/update")
         public R update(@RequestBody CategoryEntity category){
 		categoryService.updateById(category);
-
+        categoryService.updateCategoryBrandRelation(category);
         return R.ok();
     }
 
