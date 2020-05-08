@@ -1,9 +1,12 @@
 package com.byy.product.service.impl;
 
+import com.byy.product.dao.AttrAttrgroupRelationDao;
+import com.byy.product.dao.AttrDao;
 import com.byy.product.dao.CategoryDao;
+import com.byy.product.entity.AttrAttrgroupRelationEntity;
+import com.byy.product.entity.AttrEntity;
 import com.byy.product.entity.CategoryEntity;
-import com.byy.product.service.CategoryService;
-import com.byy.product.vo.AttrResponseVO;
+import com.byy.product.vo.AttrRequestVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -68,6 +73,20 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         doGetCatelogPath(catelogId,CatelogPath);
         return CatelogPath.toArray(new Long[CatelogPath.size()] );
 
+    }
+    @Autowired
+    AttrAttrgroupRelationDao relationDao;
+
+    @Autowired
+    AttrDao attrDao;
+    @Override
+    public List<AttrEntity> queryAttrRelationPage(Map<String, Object> params, Long attrGroupId) {
+        List<AttrAttrgroupRelationEntity> relationEntities = relationDao.selectList(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_group_id", attrGroupId));
+        List<Long> attrIds = relationEntities.stream().map(relation -> {
+            return relation.getAttrId();
+        }).collect(Collectors.toList());
+        List<AttrEntity> attrEntities = attrDao.selectBatchIds(attrIds);
+        return attrEntities;
     }
 
 

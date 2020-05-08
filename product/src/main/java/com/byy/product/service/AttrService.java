@@ -17,12 +17,17 @@ import java.util.Map;
  */
 public interface AttrService extends IService<AttrEntity> {
 
-    PageUtils queryPage(Map<String, Object> params);
 
     void saveAttr(AttrRequestVO attrRequestVO);
 
+    AttrResponseVO getAttrDetails(AttrEntity attrEntity);
+
+    PageUtils queryPage(Map<String, Object> params);
+
     PageUtils queryPage(Map<String, Object> params, Long catId);
 
-    AttrResponseVO getAttrDetails(AttrEntity attrEntity);
+    PageUtils queryPage(Map<String, Object> params, String attrType, Long catId);
+
+    AttrEntity queryPageByAttrId(Long attrId);
 }
 

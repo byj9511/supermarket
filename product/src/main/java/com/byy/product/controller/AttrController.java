@@ -34,8 +34,16 @@ public class AttrController {
     /**
      * 列表
      */
+    @RequestMapping("/{attrType}/list/{catId}")
+        public R attrtypeList(@RequestParam Map<String, Object> params,
+                              @PathVariable("attrType") String attrType,
+                              @PathVariable("catId") Long catId){
+        PageUtils page = attrService.queryPage(params,attrType,catId);
+
+        return R.ok().put("page", page);
+    }
     @RequestMapping("/list/{catId}")
-        public R list(@RequestParam Map<String, Object> params,@PathVariable("catId") Long catId){
+    public R list(@RequestParam Map<String, Object> params,@PathVariable("catId") Long catId){
         PageUtils page = attrService.queryPage(params,catId);
 
         return R.ok().put("page", page);
@@ -47,7 +55,7 @@ public class AttrController {
      */
     @RequestMapping("/info/{attrId}")
         public R info(@PathVariable("attrId") Long attrId){
-		AttrEntity attr = attrService.getById(attrId);
+		AttrEntity attr = attrService.queryPageByAttrId(attrId);
 
         return R.ok().put("attr", attr);
     }

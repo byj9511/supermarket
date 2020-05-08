@@ -152,18 +152,19 @@ export default {
       }
   },
     activated () {
+      this.catId = -1
       this.getDataList()
   },
     methods: {
       // 感知树节点被点击
       treenodeclick (data, node, component) {
-        if (node.level == 3) {
+        if (node.level === 3) {
           this.catId = data.catId
           this.getDataList() // 重新查询
         }
       },
       getAllDataList () {
-        this.catId = 0
+        this.catId = -1
         this.getDataList()
       },
       // 获取数据列表
@@ -250,5 +251,6 @@ export default {
     }
   }
 </script>
-<style scoped>
+<style>
+
 </style>

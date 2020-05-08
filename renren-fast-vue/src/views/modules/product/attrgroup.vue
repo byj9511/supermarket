@@ -156,7 +156,7 @@
         });
       },
       getAllDataList() {
-        this.catId = 0;
+        this.catId = -1;
         this.getDataList();
       },
       // 获取数据列表
