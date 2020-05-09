@@ -133,6 +133,7 @@
       }
     },
     activated() {
+      this.catId = -1
       this.getDataList()
     },
     methods: {

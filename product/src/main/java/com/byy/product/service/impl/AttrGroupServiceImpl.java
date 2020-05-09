@@ -6,14 +6,14 @@ import com.byy.product.dao.CategoryDao;
 import com.byy.product.entity.AttrAttrgroupRelationEntity;
 import com.byy.product.entity.AttrEntity;
 import com.byy.product.entity.CategoryEntity;
-import com.byy.product.vo.AttrRequestVO;
-import org.springframework.beans.BeanUtils;
+import com.byy.product.service.AttrService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -50,7 +50,8 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
             });
         }
         //如果没有catId就直接返回所有的信息
-        if (catId==0){
+        if (catId==-1){
+            wrapper=new QueryWrapper<AttrGroupEntity>();
         }
         else {
             wrapper.eq("catelog_id", catId);
@@ -79,6 +80,9 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
     @Autowired
     AttrDao attrDao;
+
+    @Autowired
+    AttrService attrService;
     @Override
     public List<AttrEntity> queryAttrRelationPage(Map<String, Object> params, Long attrGroupId) {
         List<AttrAttrgroupRelationEntity> relationEntities = relationDao.selectList(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_group_id", attrGroupId));
@@ -87,6 +91,29 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         }).collect(Collectors.toList());
         List<AttrEntity> attrEntities = attrDao.selectBatchIds(attrIds);
         return attrEntities;
+    }
+
+
+    @Override
+    public PageUtils queryNoAttrRelationPage(Map<String, Object> params, Long attrGroupId) {
+        AttrGroupEntity attrGroupEntity = this.getById(attrGroupId);
+        Long catelogId = attrGroupEntity.getCatelogId();
+
+        //找到商品类中已经关联的属性
+        List<AttrGroupEntity> attrGroupEntities = this.baseMapper.selectList(new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catelogId));
+        List<Long> attrGroupIds = attrGroupEntities.stream().map(attrGroupEntity1 -> {
+            return attrGroupEntity1.getAttrGroupId();
+        }).collect(Collectors.toList());
+        List<AttrAttrgroupRelationEntity> relationEntities = relationDao.selectBatchIds(attrGroupIds);
+        Set<Long> attrIds = relationEntities.stream().map(relationEntity -> {
+            return relationEntity.getAttrId();
+        }).collect(Collectors.toSet());
+        //找到商品类的所有属性
+        QueryWrapper<AttrEntity> wrapper = new QueryWrapper<AttrEntity>().eq("catelog_id", catelogId).notIn("attr_id", attrIds);
+
+        IPage<AttrEntity> page = attrService.page(new Query<AttrEntity>().getPage(params), wrapper);
+
+        return new PageUtils(page);
     }
 
 

@@ -117,11 +117,15 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
         //2、分组信息
         AttrAttrgroupRelationEntity attrgroupRelationEntity = relationDao.selectOne(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", attrEntity.getAttrId()));
-        AttrGroupEntity attrGroupEntity = attrGroupService.getOne(new QueryWrapper<AttrGroupEntity>().eq("attr_group_id", attrgroupRelationEntity.getAttrGroupId()));
-        if (attrGroupEntity !=null){
-            attrResponseVO.setAttrGroupId(attrGroupEntity.getAttrGroupId());
-            attrResponseVO.setGroupName(attrGroupEntity.getAttrGroupName());
+        if (attrgroupRelationEntity!=null){
+            AttrGroupEntity attrGroupEntity = attrGroupService.getOne(new QueryWrapper<AttrGroupEntity>().eq("attr_group_id", attrgroupRelationEntity.getAttrGroupId()));
+            if (attrGroupEntity!=null){
+                attrResponseVO.setAttrGroupId(attrGroupEntity.getAttrGroupId());
+                attrResponseVO.setGroupName(attrGroupEntity.getAttrGroupName());
+            }
+
         }
+
 
         //3、复制其余信息
         BeanUtils.copyProperties(attrEntity, attrResponseVO);
@@ -136,19 +140,24 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         else{
 
         }
+        PageUtils pageUtils=null;
         if (ProductAttrType.BASE.getType().equals(attrType)){
             wrapper.eq("attr_type", 1);
+            IPage<AttrEntity> page = this.page(new Query<AttrEntity>().getPage(params), wrapper);
+            List<AttrResponseVO> list = page.getRecords().stream().map(attrEntity -> {
+                AttrResponseVO attrDetails = this.getAttrDetails(attrEntity);
+                return attrDetails;
+            }).collect(Collectors.toList());
+            //1、将输入的属性进行重新赋值
+            pageUtils = new PageUtils(page);
+            pageUtils.setList(list);
         }else if (ProductAttrType.SALE.getType().equals(attrType)){
             wrapper.eq("attr_type", 0);
+            IPage<AttrEntity> page = this.page(new Query<AttrEntity>().getPage(params), wrapper);
+            pageUtils = new PageUtils(page);
         }
-        IPage<AttrEntity> page = this.page(new Query<AttrEntity>().getPage(params), wrapper);
-        List<AttrResponseVO> list = page.getRecords().stream().map(attrEntity -> {
-            AttrResponseVO attrDetails = this.getAttrDetails(attrEntity);
-            return attrDetails;
-        }).collect(Collectors.toList());
-        //1、将输入的属性进行重新赋值
-        PageUtils pageUtils = new PageUtils(page);
-        pageUtils.setList(list);
+
+
 
         return pageUtils;
     }

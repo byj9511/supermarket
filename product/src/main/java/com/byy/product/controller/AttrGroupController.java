@@ -45,6 +45,13 @@ public class AttrGroupController {
         List<AttrEntity> entities = attrGroupService.queryAttrRelationPage(params,attrGroupId);
         return R.ok().put("page", entities);
     }
+    @GetMapping("{attrGroupId}/noattr/relation")
+    public R listNoAttrRelation(@RequestParam Map<String, Object> params, @PathVariable("attrGroupId") Long attrGroupId){
+        //PageUtils page = attrGroupService.queryPage(params);
+        PageUtils page = attrGroupService.queryNoAttrRelationPage(params,attrGroupId);
+        return R.ok().put("page", page);
+    }
+
 
 /*    @RequestMapping("/list")
         public R list(@RequestParam Map<String, Object> params){
