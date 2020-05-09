@@ -8,11 +8,3 @@
 
 server:
   port: 9001
-spring:
-  cloud:
-    alicloud:
-      oss:
-        bucket: byy-product
-        endpoint: "oss-cn-shanghai.aliyuncs.com"
-      access-key: LTAI4GK32VvkyhJ7XN2udqtW
-      secret-key: WIQksaITeucbZYrr20Cb24MzfjQkqG
