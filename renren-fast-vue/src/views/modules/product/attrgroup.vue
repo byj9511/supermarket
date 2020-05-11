@@ -109,7 +109,7 @@
 <script>
   import category from '../components/category'
   import AddOrUpdate from './attrgroup-add-or-update.vue'
-  import RelationUpdate from "./attr-group-relation";
+  import RelationUpdate from './attr-group-relation';
 
   export default {
     name: 'attrgroup',

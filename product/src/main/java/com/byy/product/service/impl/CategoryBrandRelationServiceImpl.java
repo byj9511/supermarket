@@ -4,9 +4,14 @@ import com.byy.product.dao.BrandDao;
 import com.byy.product.dao.CategoryDao;
 import com.byy.product.entity.BrandEntity;
 import com.byy.product.entity.CategoryEntity;
+import com.byy.product.vo.BrandResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -58,5 +63,23 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
     @Override
     public void updateByCategory(CategoryEntity category) {
         this.brandDao.updateByCategory(category.getCatId(),category.getName());
+    }
+
+
+
+    @Override
+    public List<BrandResponseVO> getSelectedBrand(Long catId) {
+        List<CategoryBrandRelationEntity> relationEntities = this.baseMapper.selectList(new QueryWrapper<CategoryBrandRelationEntity>().eq("catelog_id", catId));
+        List<Long> brandIds = relationEntities.stream().map(relationEntity -> {
+            return relationEntity.getBrandId();
+        }).collect(Collectors.toList());
+        List<BrandEntity> brandEntities = brandDao.selectBatchIds(brandIds);
+        List<BrandResponseVO> BrandVOs = brandEntities.stream().map(brandEntity -> {
+            BrandResponseVO brandResponseVO = new BrandResponseVO();
+            brandResponseVO.setLabel(brandEntity.getName());
+            brandResponseVO.setValue(brandEntity.getBrandId());
+            return brandResponseVO;
+        }).collect(Collectors.toList());
+        return BrandVOs;
     }
 }

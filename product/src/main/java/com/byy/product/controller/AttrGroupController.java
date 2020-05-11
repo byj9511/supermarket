@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import com.byy.product.entity.AttrAttrgroupRelationEntity;
 import com.byy.product.entity.AttrEntity;
+import com.byy.product.vo.AttrGroupResponseVO;
 import com.byy.product.vo.AttrRequestVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -39,18 +41,37 @@ public class AttrGroupController {
         return R.ok().put("page", page);
     }
 
-    @GetMapping("{attrGroupId}/attr/relation")
-    public R listAttrRelation(@RequestParam Map<String, Object> params, @PathVariable("attrGroupId") Long attrGroupId){
+    @GetMapping("/{attrGroupId}/attr/relation")
+    public R listAttrRelation(@PathVariable("attrGroupId") Long attrGroupId){
         //PageUtils page = attrGroupService.queryPage(params);
-        List<AttrEntity> entities = attrGroupService.queryAttrRelationPage(params,attrGroupId);
+        List<AttrEntity> entities = attrGroupService.queryAttrRelationPage(attrGroupId);
         return R.ok().put("page", entities);
     }
-    @GetMapping("{attrGroupId}/noattr/relation")
+    @GetMapping("/{attrGroupId}/noattr/relation")
     public R listNoAttrRelation(@RequestParam Map<String, Object> params, @PathVariable("attrGroupId") Long attrGroupId){
         //PageUtils page = attrGroupService.queryPage(params);
         PageUtils page = attrGroupService.queryNoAttrRelationPage(params,attrGroupId);
         return R.ok().put("page", page);
     }
+    @RequestMapping("/attr/relation")
+    public R addAttrAttrgroupRelation(@RequestBody List<AttrAttrgroupRelationEntity> relationEntities){
+        //PageUtils page = attrGroupService.queryPage(params);
+        attrGroupService.addAttrAttrgroupRelation(relationEntities);
+        return R.ok();
+    }
+    @RequestMapping("/attr/relation/delete")
+    public R deleteAttrAttrgroupRelation(@RequestBody List<AttrAttrgroupRelationEntity> relationEntities){
+        //PageUtils page = attrGroupService.queryPage(params);
+        attrGroupService.deleteAttrAttrgroupRelation(relationEntities);
+        return R.ok();
+    }
+    @GetMapping("/{catId}/withattr")
+    public R listCatelogAttr(@PathVariable("catId") Long catId){
+        //PageUtils page = attrGroupService.queryPage(params);
+        List<AttrGroupResponseVO> VOS = attrGroupService.getCatelogAttr(catId);
+        return R.ok().put("data", VOS);
+    }
+
 
 
 /*    @RequestMapping("/list")

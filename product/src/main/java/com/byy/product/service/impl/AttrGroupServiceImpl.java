@@ -6,7 +6,10 @@ import com.byy.product.dao.CategoryDao;
 import com.byy.product.entity.AttrAttrgroupRelationEntity;
 import com.byy.product.entity.AttrEntity;
 import com.byy.product.entity.CategoryEntity;
+import com.byy.product.service.AttrAttrgroupRelationService;
 import com.byy.product.service.AttrService;
+import com.byy.product.vo.AttrGroupResponseVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -83,8 +86,11 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
     @Autowired
     AttrService attrService;
+
+    @Autowired
+    AttrAttrgroupRelationService relationService;
     @Override
-    public List<AttrEntity> queryAttrRelationPage(Map<String, Object> params, Long attrGroupId) {
+    public List<AttrEntity> queryAttrRelationPage(Long attrGroupId) {
         List<AttrAttrgroupRelationEntity> relationEntities = relationDao.selectList(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_group_id", attrGroupId));
         List<Long> attrIds = relationEntities.stream().map(relation -> {
             return relation.getAttrId();
@@ -114,6 +120,35 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         IPage<AttrEntity> page = attrService.page(new Query<AttrEntity>().getPage(params), wrapper);
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public void addAttrAttrgroupRelation(List<AttrAttrgroupRelationEntity> relationEntities) {
+        if (relationEntities!=null)relationService.saveBatch(relationEntities);
+
+
+    }
+
+    @Override
+    public void deleteAttrAttrgroupRelation(List<AttrAttrgroupRelationEntity> relationEntities) {
+        if (relationEntities!=null)relationDao.deleteBatah(relationEntities);
+
+    }
+
+    @Override
+    public List<AttrGroupResponseVO> getCatelogAttr(Long catId) {
+        List<AttrGroupEntity> attrGroupEntities = this.list(new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catId));
+
+        List<AttrGroupResponseVO> attrGroupResponseVOS = attrGroupEntities.stream().map(attrGroupEntity -> {
+            AttrGroupResponseVO attrGroupResponseVO = new AttrGroupResponseVO();
+            BeanUtils.copyProperties(attrGroupEntity, attrGroupResponseVO);
+            List<AttrEntity> attrEntities = this.queryAttrRelationPage(attrGroupEntity.getAttrGroupId());
+            attrGroupResponseVO.setAttrs(attrEntities);
+            return attrGroupResponseVO;
+        }).collect(Collectors.toList());
+
+
+        return attrGroupResponseVOS;
     }
 
 

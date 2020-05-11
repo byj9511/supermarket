@@ -2,8 +2,10 @@ package com.byy.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.byy.common.utils.PageUtils;
+import com.byy.product.entity.AttrAttrgroupRelationEntity;
 import com.byy.product.entity.AttrEntity;
 import com.byy.product.entity.AttrGroupEntity;
+import com.byy.product.vo.AttrGroupResponseVO;
 
 import java.util.List;
 import java.util.Map;
@@ -23,8 +25,14 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
 
     Long[] getCatelogPath(Long catelogId);
 
-    List<AttrEntity> queryAttrRelationPage(Map<String, Object> params, Long attrGroupId);
+    List<AttrEntity> queryAttrRelationPage(Long attrGroupId);
 
     PageUtils queryNoAttrRelationPage(Map<String, Object> params, Long attrGroupId);
+
+    void addAttrAttrgroupRelation(List<AttrAttrgroupRelationEntity> relationEntities);
+
+    void deleteAttrAttrgroupRelation(List<AttrAttrgroupRelationEntity> relationEntities);
+
+    List<AttrGroupResponseVO> getCatelogAttr(Long catId);
 }
 

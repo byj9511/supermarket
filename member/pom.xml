@@ -11,5 +11,13 @@
 
     <artifactId>member</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.byy</groupId>
+            <artifactId>market_commons</artifactId>
+            <version>1.0</version>
+        </dependency>
 
+
+    </dependencies>
 </project>

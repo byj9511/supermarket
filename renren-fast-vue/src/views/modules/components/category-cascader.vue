@@ -17,6 +17,8 @@
 <script>
   // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
   // 例如：import 《组件名称》 from '《组件路径》';
+  // eslint-disable-next-line no-unused-vars
+  import PubSub from 'pubsub-js'
 
   export default {
     // import引入的组件需要注入到对象中才能使用
@@ -47,9 +49,11 @@
         this.paths = this.catelogPath
       },
       paths (v) {
+        //从子组件向父组件传递事件和值
         this.$emit('update:catelogPath', v)
         // 还可以使用pubsub-js进行传值
-        this.PubSub.publish('catPath', v)
+        console.log("wathc执行")
+        PubSub.publish('catPath', v)
       }
     },
     // 方法集合
@@ -60,7 +64,7 @@
           method: 'get'
         }).then(({data}) => {
           this.categories = data.tree
-          console.log(this.categories)
+          // console.log(this.categories)
         })
       }
     },

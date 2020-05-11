@@ -1,7 +1,8 @@
 <template>
   <el-dialog
     :title="!dataForm.id ? '新增' : '修改'"
-    :close-on-click-modal="false"
+
+    :close-on-click-modal="true"
     @close="dialogClose"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()"
