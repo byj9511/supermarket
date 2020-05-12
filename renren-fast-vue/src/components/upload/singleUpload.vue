@@ -77,6 +77,7 @@
         this.dialogVisible = true
       },
       beforeUpload (file) {
+        //在将文件上传到阿里云之前，首先异步向后端发送请求，获得上传的许可签名
         let _self = this
         return new Promise((resolve, reject) => {
           policy().then(response => {

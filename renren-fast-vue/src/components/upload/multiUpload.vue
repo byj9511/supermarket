@@ -36,6 +36,7 @@ import {getUUID} from '@/utils'
     },
     data () {
       return {
+        //发送请求时携带的数据
         dataObj: {
           policy: '',
           signature: '',
@@ -67,6 +68,7 @@ import {getUUID} from '@/utils'
         for (let i = 0; i < fileList.length; i++) {
           value.push(fileList[i].url)
         }
+        //与父组件进行通讯
         this.$emit('input', value)
       },
       handleRemove (file, fileList) {
@@ -85,6 +87,7 @@ import {getUUID} from '@/utils'
               _self.dataObj.policy = response.data.policy
               _self.dataObj.signature = response.data.signature
               _self.dataObj.ossaccessKeyId = response.data.accessid
+              //${filename}仅仅是一个占位符
               _self.dataObj.key = response.data.dir + '/' + getUUID() + '_${filename}'
               _self.dataObj.dir = response.data.dir
               _self.dataObj.host = response.data.host
