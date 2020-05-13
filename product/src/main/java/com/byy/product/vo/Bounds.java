@@ -1,12 +1,14 @@
 /**
-  * Copyright 2020 bejson.com 
+  * Copyright 2019 bejson.com 
   */
 package com.byy.product.vo;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 /**
- * Auto-generated: 2020-05-12 22:39:18
+ * Auto-generated: 2019-11-26 10:50:34
  *
  * @author bejson.com (i@bejson.com)
  * @website http://www.bejson.com/java2pojo/
@@ -14,7 +16,8 @@ import lombok.Data;
 @Data
 public class Bounds {
 
-    private int buyBounds;
-    private int growBounds;
+    private BigDecimal buyBounds;
+    private BigDecimal growBounds;
+
 
 }
