@@ -1,6 +1,9 @@
 package com.byy.product.service.impl;
 
+import com.byy.common.to.SkuReductionTO;
+import com.byy.common.to.SpuBoundsTO;
 import com.byy.product.entity.*;
+import com.byy.product.feign.CouponFeignService;
 import com.byy.product.service.*;
 import com.byy.product.vo.*;
 import org.springframework.aop.framework.AopContext;
@@ -53,6 +56,8 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     @Autowired
     SkuSaleAttrValueService skuSaleAttrValueService;
 
+    @Autowired
+    CouponFeignService couponFeignService;
     @Transactional
     @Override
     public void saveSpuDetails(SpuSaveVO spuSaveVO) {
@@ -69,6 +74,16 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         spuInfoServiceProxy.saveSkuInfoDesc(spuSaveVO, spuInfoEntity);
         spuInfoServiceProxy.saveAttrValue(spuSaveVO, spuInfoEntity);
         spuInfoServiceProxy.saveSkuDetails(spuSaveVO, spuInfoEntity);
+
+    //    保存spu从购物后的积分变化
+        Bounds bounds = spuSaveVO.getBounds();
+        SpuBoundsTO spuBoundsTO = new SpuBoundsTO();
+        BeanUtils.copyProperties(bounds, spuBoundsTO);
+        spuBoundsTO.setSpuId(spuInfoEntity.getId());
+        couponFeignService.spuboundsSave(spuBoundsTO);
+
+
+
 
     }
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -108,6 +123,12 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                     return skuSaleAttrValueEntity;
                 }).collect(Collectors.toList());
                 skuSaleAttrValueService.saveBatch(skuSaleAttrValueEntities);
+                //    保存sku优化价格信息
+
+                SkuReductionTO skuReductionTO = new SkuReductionTO();
+                BeanUtils.copyProperties(sku, skuReductionTO);
+                skuReductionTO.setSkuId(skuInfoEntity.getSkuId());
+                couponFeignService.saveSkuReduction(skuReductionTO);
             });
 
         }
