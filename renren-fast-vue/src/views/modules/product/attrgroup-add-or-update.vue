@@ -133,7 +133,7 @@
                   duration: 1500,
                   onClose: () => {
                     this.visible = false
-                    this.$emit('refreshDataList', this.catelogId)
+                    this.$emit('refreshDataList', this.dataForm.catelogId)
                   }
                 })
               } else {
@@ -146,7 +146,7 @@
     },
     created() {
       this.getCategory()
-      console.log("categories", this.categories)
+      // console.log("categories", this.categories)
     }
   }
 </script>

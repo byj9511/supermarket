@@ -74,8 +74,8 @@ public class AttrController {
      * 修改
      */
     @RequestMapping("/update")
-        public R update(@RequestBody AttrEntity attr){
-		attrService.updateById(attr);
+        public R update(@RequestBody AttrRequestVO attrRequestVO){
+		attrService.updateAttr(attrRequestVO);
 
         return R.ok();
     }

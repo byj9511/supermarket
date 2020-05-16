@@ -1,7 +1,7 @@
 <template>
   <el-dialog
     :title="!dataForm.id ? '新增' : '修改'"
-    :close-on-click-modal="false"
+    :close-on-click-modal="true"
     :visible.sync="visible"
     @closed="dialogClose"
   >
@@ -216,9 +216,9 @@ export default {
             if (data && data.code === 0) {
               this.dataForm.attrName = data.attr.attrName
               this.dataForm.searchType = data.attr.searchType
-              this.dataForm.valueType = data.attr.valueType
               this.dataForm.icon = data.attr.icon
               this.dataForm.valueSelect = data.attr.valueSelect.split(';')
+              this.dataForm.valueType = (this.dataForm.valueSelect.length > 1) ? 1 : 0
               this.dataForm.attrType = data.attr.attrType
               this.dataForm.enable = data.attr.enable
               this.dataForm.catelogId = data.attr.catelogId

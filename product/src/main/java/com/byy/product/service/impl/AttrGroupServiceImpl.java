@@ -9,6 +9,7 @@ import com.byy.product.entity.CategoryEntity;
 import com.byy.product.service.AttrAttrgroupRelationService;
 import com.byy.product.service.AttrService;
 import com.byy.product.vo.AttrGroupResponseVO;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,7 +48,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
     public PageUtils queryPage(Map<String, Object> params, Long catId) {
         QueryWrapper<AttrGroupEntity> wrapper=new QueryWrapper<AttrGroupEntity>();
         String key = (String) params.get("key");
-        if (key!=null){
+        if (key!=null && !Strings.isEmpty(key)){
             wrapper.and((obj)->{
                 obj.eq("attr_group_id", key).or().like("attr_group_name", key);
             });
@@ -95,7 +96,10 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         List<Long> attrIds = relationEntities.stream().map(relation -> {
             return relation.getAttrId();
         }).collect(Collectors.toList());
-        List<AttrEntity> attrEntities = attrDao.selectBatchIds(attrIds);
+        List<AttrEntity> attrEntities=null;
+        if (attrIds!=null && attrIds.size()>0){
+            attrEntities = attrDao.selectBatchIds(attrIds);
+        }
         return attrEntities;
     }
 

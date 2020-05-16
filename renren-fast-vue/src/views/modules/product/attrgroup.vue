@@ -99,7 +99,7 @@
         <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate"
                        @refreshDataList="refreshAfterSubmit"></add-or-update>
         <!-- 修改关联关系 -->
-        <relation-update v-if="relationVisible" ref="relationUpdate" @refreshData="getDataList"></relation-update>
+        <relation-update v-if="relationVisible" ref="relationUpdate" @refreshDataList="refreshData"></relation-update>
       </div>
     </el-col>
 
@@ -109,13 +109,13 @@
 <script>
   import category from '../components/category'
   import AddOrUpdate from './attrgroup-add-or-update.vue'
-  import RelationUpdate from './attr-group-relation';
+  import RelationUpdate from './attr-group-relation'
 
-  export default {
+export default {
     name: 'attrgroup',
     components: {category, AddOrUpdate, RelationUpdate},
 
-    data() {
+    data () {
       return {
 
         catId: 0,
@@ -129,39 +129,47 @@
         dataListLoading: false,
         dataListSelections: [],
         addOrUpdateVisible: false,
-        relationVisible: false
+        relationVisible: false,
+        treeNodeClicked: false
       }
     },
-    activated() {
+    activated () {
       this.catId = -1
       this.getDataList()
     },
     methods: {
-      treeNodeClick(data, node, component) {
+      treeNodeClick (data, node, component) {
         // console.log('父组件被点击', data, node, component)
         if (node.childNodes.length === 0) {
           this.catId = data.catId
+          this.treeNodeClicked = true
           // console.log(data)
           this.getDataList()
         }
       },
-      refreshAfterSubmit(catelogId) {
+      refreshAfterSubmit (catelogId) {
         this.catId = catelogId || 0
         console.log(this.catId)
         this.getDataList()
       },
-      relationHandle(groupId) {
-        this.relationVisible = true;
+      relationHandle (groupId) {
+        this.relationVisible = true
         this.$nextTick(() => {
-          this.$refs.relationUpdate.init(groupId);
-        });
+          this.$refs.relationUpdate.init(groupId)
+        })
       },
-      getAllDataList() {
-        this.catId = -1;
-        this.getDataList();
+      refreshData (catelogId) {
+        this.catId = (this.treeNodeClicked) ? -1 : catelogId
+        this.getDataList()
+        this.treeNodeClicked = false
+      },
+      getAllDataList () {
+        // eslint-disable-next-line no-undef
+        this.catId = -1
+        this.getDataList()
       },
       // 获取数据列表
-      getDataList() {
+      getDataList () {
         this.dataListLoading = true
         this.$http({
           url: this.$http.adornUrl(`/product/attrgroup/list/${this.catId}`),
@@ -183,29 +191,29 @@
         })
       },
       // 每页数
-      sizeChangeHandle(val) {
+      sizeChangeHandle (val) {
         this.pageSize = val
         this.pageIndex = 1
         this.getDataList()
       },
       // 当前页
-      currentChangeHandle(val) {
+      currentChangeHandle (val) {
         this.pageIndex = val
         this.getDataList()
       },
       // 多选
-      selectionChangeHandle(val) {
+      selectionChangeHandle (val) {
         this.dataListSelections = val
       },
       // 新增 / 修改
-      addOrUpdateHandle(id) {
+      addOrUpdateHandle (id) {
         this.addOrUpdateVisible = true
         this.$nextTick(() => {
           this.$refs.addOrUpdate.init(id)
         })
       },
       // 删除
-      deleteHandle(id) {
+      deleteHandle (id) {
         var ids = id ? [id] : this.dataListSelections.map(item => {
           return item.attrGroupId
         })

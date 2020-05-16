@@ -3,6 +3,7 @@ package com.byy.coupon.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.byy.common.to.SkuReductionTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,9 +56,8 @@ public class SkuFullReductionController {
      * 保存
      */
     @RequestMapping("/save")
-        public R save(@RequestBody SkuFullReductionEntity skuFullReduction){
-        //TODO
-		skuFullReductionService.save(skuFullReduction);
+        public R save(@RequestBody SkuReductionTO skuReductionTO){
+		skuFullReductionService.saveSkuReductionTO(skuReductionTO);
 
         return R.ok();
     }

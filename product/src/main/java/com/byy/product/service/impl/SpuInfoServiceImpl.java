@@ -2,15 +2,19 @@ package com.byy.product.service.impl;
 
 import com.byy.common.to.SkuReductionTO;
 import com.byy.common.to.SpuBoundsTO;
+import com.byy.common.utils.R;
 import com.byy.product.entity.*;
 import com.byy.product.feign.CouponFeignService;
 import com.byy.product.service.*;
 import com.byy.product.vo.*;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,7 +29,7 @@ import com.byy.product.dao.SpuInfoDao;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-
+@Slf4j
 @Service("spuInfoService")
 public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> implements SpuInfoService {
 
@@ -80,7 +84,10 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         SpuBoundsTO spuBoundsTO = new SpuBoundsTO();
         BeanUtils.copyProperties(bounds, spuBoundsTO);
         spuBoundsTO.setSpuId(spuInfoEntity.getId());
-        couponFeignService.spuboundsSave(spuBoundsTO);
+        R r = couponFeignService.spuboundsSave(spuBoundsTO);
+        if (r.getCode()!=0){
+            log.error("spuboundsSave远程调用失败");
+        }
 
 
 
@@ -113,7 +120,8 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                     BeanUtils.copyProperties(image, skuImagesEntity);
                     skuImagesEntity.setSkuId(skuInfoEntity.getSkuId());
                     return skuImagesEntity;
-                }).collect(Collectors.toList());
+                }).filter(skuImagesEntity-> (!Strings.isEmpty(skuImagesEntity.getImgUrl()))).collect(Collectors.toList());
+                //图片空连接处理
                 skuImagesService.saveBatch(skuImagesEntityList);
                 List<Attr> attrs = sku.getAttr();
                 List<SkuSaleAttrValueEntity> skuSaleAttrValueEntities = attrs.stream().map(attr -> {
@@ -124,11 +132,16 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                 }).collect(Collectors.toList());
                 skuSaleAttrValueService.saveBatch(skuSaleAttrValueEntities);
                 //    保存sku优化价格信息
+                if (sku.getFullPrice().compareTo(new BigDecimal(0))==1 || sku.getFullCount()>0){
+                    SkuReductionTO skuReductionTO = new SkuReductionTO();
+                    BeanUtils.copyProperties(sku, skuReductionTO);
+                    skuReductionTO.setSkuId(skuInfoEntity.getSkuId());
+                    R r = couponFeignService.saveSkuReduction(skuReductionTO);
+                    if (r.getCode()!=0){
+                        log.error("saveSkuReduction远程调用失败");
+                    }
+                }
 
-                SkuReductionTO skuReductionTO = new SkuReductionTO();
-                BeanUtils.copyProperties(sku, skuReductionTO);
-                skuReductionTO.setSkuId(skuInfoEntity.getSkuId());
-                couponFeignService.saveSkuReduction(skuReductionTO);
             });
 
         }
