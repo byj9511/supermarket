@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -93,6 +94,40 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
 
     }
+
+    @Override
+    public PageUtils queryPageBycondition(Map<String, Object> params) {
+        QueryWrapper<SpuInfoEntity> spuInfoEntityQueryWrapper = new QueryWrapper<SpuInfoEntity>();
+        String key = (String)params.get("key");
+        String brandId = (String)params.get("brandId");
+        String catelogId = (String)params.get("catelogId");
+        String status = (String)params.get("status");
+        if (!Strings.isEmpty(key)){
+            spuInfoEntityQueryWrapper.like("spu_name", key);
+        }
+        if (!Strings.isEmpty(brandId)){
+            long l = Long.parseLong(brandId);
+            spuInfoEntityQueryWrapper.eq("brand_id", l);
+        }
+        if (!Strings.isEmpty(catelogId)){
+            long l = Long.parseLong(catelogId);
+            spuInfoEntityQueryWrapper.like("catelog_id", l);
+        }
+        if (!Strings.isEmpty(status)){
+            int i = Integer.parseInt(status);
+            spuInfoEntityQueryWrapper.like("publish_status", i);
+        }
+        HashMap<String, Object> pageParam = new HashMap<>();
+        pageParam.put("page", params.get("page"));
+        pageParam.put("limit", params.get("limit"));
+        IPage<SpuInfoEntity> page = this.page(
+                new Query<SpuInfoEntity>().getPage(pageParam),
+                spuInfoEntityQueryWrapper
+        );
+
+        return new PageUtils(page);
+    }
+
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     void saveSkuDetails(SpuSaveVO spuSaveVO, SpuInfoEntity spuInfoEntity) {
         //    保存spu的sku信息 sku_info
@@ -121,7 +156,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                     skuImagesEntity.setSkuId(skuInfoEntity.getSkuId());
                     return skuImagesEntity;
                 }).filter(skuImagesEntity-> (!Strings.isEmpty(skuImagesEntity.getImgUrl()))).collect(Collectors.toList());
-                //图片空连接处理
+                //用filter过滤掉空链接的图片
                 skuImagesService.saveBatch(skuImagesEntityList);
                 List<Attr> attrs = sku.getAttr();
                 List<SkuSaleAttrValueEntity> skuSaleAttrValueEntities = attrs.stream().map(attr -> {
@@ -131,7 +166,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                     return skuSaleAttrValueEntity;
                 }).collect(Collectors.toList());
                 skuSaleAttrValueService.saveBatch(skuSaleAttrValueEntities);
-                //    保存sku优化价格信息
+                //    利用openfeign实现远程调用，保存sku优化价格信息
                 if (sku.getFullPrice().compareTo(new BigDecimal(0))==1 || sku.getFullCount()>0){
                     SkuReductionTO skuReductionTO = new SkuReductionTO();
                     BeanUtils.copyProperties(sku, skuReductionTO);

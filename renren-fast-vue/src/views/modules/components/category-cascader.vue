@@ -52,7 +52,7 @@
         //从子组件向父组件传递事件和值
         this.$emit('update:catelogPath', v)
         // 还可以使用pubsub-js进行传值
-        console.log("wathc执行")
+        // console.log("wathc执行")
         PubSub.publish('catPath', v)
       }
     },

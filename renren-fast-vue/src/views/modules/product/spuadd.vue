@@ -679,6 +679,8 @@ export default {
           params: this.$http.adornParams({})
         }).then(({ data }) => {
           // 先对表单的baseAttrs进行初始化
+          // TODO
+          // 如果attrgroup没有与attr关联时会有异常
           data.data.forEach(item => {
             let attrArray = []
             item.attrs.forEach(attr => {

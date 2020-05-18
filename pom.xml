@@ -21,6 +21,8 @@
         <module>market_commons</module>
         <module>gateway</module>
         <module>third-party</module>
+        <module>ssoserver</module>
+        <module>client1</module>
     </modules>
     <!--2、编译器版本-->
     <properties>
@@ -55,6 +57,11 @@
                 <scope>import</scope>
             </dependency>
 <!--            引入了以上3个总的dependencies之后，-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>2.2.4.RELEASE</version>
+            </dependency>
 <!--            &lt;!&ndash;            网关&ndash;&gt;-->
 <!--            &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-gateway &ndash;&gt;-->
 <!--            <dependency>-->
@@ -164,7 +171,11 @@
                 <artifactId>httpcore</artifactId>
                 <version>4.4.12</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.68</version>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>

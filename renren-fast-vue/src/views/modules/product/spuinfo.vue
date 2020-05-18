@@ -49,6 +49,7 @@
 </template>
 
 <script>
+  import PubSub from 'pubsub-js'
 export default {
   data() {
     return {
@@ -109,7 +110,7 @@ export default {
         limit: this.pageSize
       });
       this.$http({
-        url: this.$http.adornUrl("/product/spuinfo/list"),
+        url: this.$http.adornUrl('/product/spuinfo/list'),
         method: "get",
         params: this.$http.adornParams(param)
       }).then(({ data }) => {
@@ -143,7 +144,7 @@ export default {
   },
   mounted() {
     this.dataSub = PubSub.subscribe("dataForm", (msg, val) => {
-      console.log("~~~~~", val);
+      // console.log("~~~~~", val);
       this.dataForm = val;
       this.getDataList();
     });
