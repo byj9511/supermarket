@@ -4,7 +4,7 @@
 <mapper namespace="com.byy.product.dao.SpuInfoDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.byy.product.entity.SpuInfoEntity" id="spuInfoMap">
+    <resultMap type="com.byy.product.model.entity.SpuInfoEntity" id="spuInfoMap">
         <result property="id" column="id"/>
         <result property="spuName" column="spu_name"/>
         <result property="spuDescription" column="spu_description"/>

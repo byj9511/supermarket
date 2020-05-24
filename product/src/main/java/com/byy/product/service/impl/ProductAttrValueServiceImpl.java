@@ -9,7 +9,7 @@ import com.byy.common.utils.PageUtils;
 import com.byy.common.utils.Query;
 
 import com.byy.product.dao.ProductAttrValueDao;
-import com.byy.product.entity.ProductAttrValueEntity;
+import com.byy.product.model.entity.ProductAttrValueEntity;
 import com.byy.product.service.ProductAttrValueService;
 
 

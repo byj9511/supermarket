@@ -4,14 +4,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import com.byy.product.entity.AttrAttrgroupRelationEntity;
-import com.byy.product.entity.AttrEntity;
-import com.byy.product.vo.AttrGroupResponseVO;
-import com.byy.product.vo.AttrRequestVO;
+import com.byy.product.model.entity.AttrAttrgroupRelationEntity;
+import com.byy.product.model.entity.AttrEntity;
+import com.byy.product.model.vo.AttrGroupResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.byy.product.entity.AttrGroupEntity;
+import com.byy.product.model.entity.AttrGroupEntity;
 import com.byy.product.service.AttrGroupService;
 import com.byy.common.utils.PageUtils;
 import com.byy.common.utils.R;

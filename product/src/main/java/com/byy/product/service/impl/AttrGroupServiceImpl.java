@@ -3,12 +3,12 @@ package com.byy.product.service.impl;
 import com.byy.product.dao.AttrAttrgroupRelationDao;
 import com.byy.product.dao.AttrDao;
 import com.byy.product.dao.CategoryDao;
-import com.byy.product.entity.AttrAttrgroupRelationEntity;
-import com.byy.product.entity.AttrEntity;
-import com.byy.product.entity.CategoryEntity;
+import com.byy.product.model.entity.AttrAttrgroupRelationEntity;
+import com.byy.product.model.entity.AttrEntity;
+import com.byy.product.model.entity.CategoryEntity;
 import com.byy.product.service.AttrAttrgroupRelationService;
 import com.byy.product.service.AttrService;
-import com.byy.product.vo.AttrGroupResponseVO;
+import com.byy.product.model.vo.AttrGroupResponseVO;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ import com.byy.common.utils.PageUtils;
 import com.byy.common.utils.Query;
 
 import com.byy.product.dao.AttrGroupDao;
-import com.byy.product.entity.AttrGroupEntity;
+import com.byy.product.model.entity.AttrGroupEntity;
 import com.byy.product.service.AttrGroupService;
 
 

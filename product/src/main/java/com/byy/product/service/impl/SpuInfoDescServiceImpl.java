@@ -9,7 +9,7 @@ import com.byy.common.utils.PageUtils;
 import com.byy.common.utils.Query;
 
 import com.byy.product.dao.SpuInfoDescDao;
-import com.byy.product.entity.SpuInfoDescEntity;
+import com.byy.product.model.entity.SpuInfoDescEntity;
 import com.byy.product.service.SpuInfoDescService;
 
 

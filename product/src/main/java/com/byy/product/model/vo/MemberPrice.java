@@ -1,7 +1,7 @@
 /**
   * Copyright 2019 bejson.com 
   */
-package com.byy.product.vo;
+package com.byy.product.model.vo;
 
 import lombok.Data;
 
@@ -14,10 +14,10 @@ import java.math.BigDecimal;
  * @website http://www.bejson.com/java2pojo/
  */
 @Data
-public class Bounds {
+public class MemberPrice {
 
-    private BigDecimal buyBounds;
-    private BigDecimal growBounds;
-
+    private Long id;
+    private String name;
+    private BigDecimal price;
 
 }

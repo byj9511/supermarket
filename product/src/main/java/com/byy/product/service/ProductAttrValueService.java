@@ -2,7 +2,7 @@ package com.byy.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.byy.common.utils.PageUtils;
-import com.byy.product.entity.ProductAttrValueEntity;
+import com.byy.product.model.entity.ProductAttrValueEntity;
 
 import java.util.Map;
 

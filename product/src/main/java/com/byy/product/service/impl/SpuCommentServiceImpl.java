@@ -9,7 +9,7 @@ import com.byy.common.utils.PageUtils;
 import com.byy.common.utils.Query;
 
 import com.byy.product.dao.SpuCommentDao;
-import com.byy.product.entity.SpuCommentEntity;
+import com.byy.product.model.entity.SpuCommentEntity;
 import com.byy.product.service.SpuCommentService;
 
 

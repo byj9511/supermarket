@@ -1,10 +1,9 @@
 package com.byy.product.dao;
 
-import com.byy.product.entity.AttrAttrgroupRelationEntity;
+import com.byy.product.model.entity.AttrAttrgroupRelationEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 

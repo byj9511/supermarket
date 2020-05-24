@@ -1,36 +1,33 @@
-package com.byy.product.entity;
+package com.byy.product.model.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
-import java.util.Date;
+
 import lombok.Data;
 
 /**
- * 商品评价回复关系
+ * spu信息介绍
  * 
  * @author byy
  * @email 18621711850@163.com
  * @date 2020-04-26 01:02:31
  */
 @Data
-@TableName("pms_comment_replay")
-public class CommentReplayEntity implements Serializable {
+@TableName("pms_spu_info_desc")
+public class SpuInfoDescEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * id
+	 * 商品id
 	 */
-	@TableId
-	private Long id;
+	@TableId(type = IdType.INPUT)
+	private Long spuId;
 	/**
-	 * 评论id
+	 * 商品介绍
 	 */
-	private Long commentId;
-	/**
-	 * 回复id
-	 */
-	private Long replyId;
+	private String decript;
 
 }

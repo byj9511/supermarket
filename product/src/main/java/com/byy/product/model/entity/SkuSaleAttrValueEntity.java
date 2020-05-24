@@ -1,22 +1,22 @@
-package com.byy.product.entity;
+package com.byy.product.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
-import java.util.Date;
+
 import lombok.Data;
 
 /**
- * 属性&属性分组关联
+ * sku销售属性&值
  * 
  * @author byy
  * @email 18621711850@163.com
  * @date 2020-04-26 01:02:31
  */
 @Data
-@TableName("pms_attr_attrgroup_relation")
-public class AttrAttrgroupRelationEntity implements Serializable {
+@TableName("pms_sku_sale_attr_value")
+public class SkuSaleAttrValueEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -25,15 +25,23 @@ public class AttrAttrgroupRelationEntity implements Serializable {
 	@TableId
 	private Long id;
 	/**
-	 * 属性id
+	 * sku_id
+	 */
+	private Long skuId;
+	/**
+	 * attr_id
 	 */
 	private Long attrId;
 	/**
-	 * 属性分组id
+	 * 销售属性名
 	 */
-	private Long attrGroupId;
+	private String attrName;
 	/**
-	 * 属性组内排序
+	 * 销售属性值
+	 */
+	private String attrValue;
+	/**
+	 * 顺序
 	 */
 	private Integer attrSort;
 

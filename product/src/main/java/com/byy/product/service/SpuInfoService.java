@@ -2,8 +2,8 @@ package com.byy.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.byy.common.utils.PageUtils;
-import com.byy.product.entity.SpuInfoEntity;
-import com.byy.product.vo.SpuSaveVO;
+import com.byy.product.model.entity.SpuInfoEntity;
+import com.byy.product.model.vo.SpuSaveVO;
 
 import java.util.Map;
 

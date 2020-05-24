@@ -1,6 +1,6 @@
-package com.byy.product.vo;
+package com.byy.product.model.vo;
 
-import com.byy.product.entity.AttrEntity;
+import com.byy.product.model.entity.AttrEntity;
 import lombok.Data;
 import lombok.ToString;
 

@@ -4,7 +4,7 @@
 <mapper namespace="com.byy.product.dao.SpuImagesDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.byy.product.entity.SpuImagesEntity" id="spuImagesMap">
+    <resultMap type="com.byy.product.model.entity.SpuImagesEntity" id="spuImagesMap">
         <result property="id" column="id"/>
         <result property="spuId" column="spu_id"/>
         <result property="imgName" column="img_name"/>

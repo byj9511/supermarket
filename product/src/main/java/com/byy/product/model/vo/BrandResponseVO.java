@@ -1,4 +1,4 @@
-package com.byy.product.vo;
+package com.byy.product.model.vo;
 
 import lombok.Data;
 

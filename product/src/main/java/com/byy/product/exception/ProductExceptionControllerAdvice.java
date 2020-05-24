@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 
 @Slf4j
+//进行集中的异常处理
 @RestControllerAdvice(basePackages = "com.byy.product.controller")
 public class ProductExceptionControllerAdvice {
 
@@ -25,6 +26,7 @@ public class ProductExceptionControllerAdvice {
         bindingResult.getFieldErrors().stream().forEach((fieldError -> {
             errorMap.put(fieldError.getField(), fieldError.getDefaultMessage());
         }));
+        //返回异常信息的json
         return R.error(ExceptionCode.VALIDATION_EXCEPTION.getCode(),ExceptionCode.VALIDATION_EXCEPTION.getExceptionMsg()).put("data", errorMap);
     }
 }

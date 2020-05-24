@@ -2,10 +2,10 @@ package com.byy.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.byy.common.utils.PageUtils;
-import com.byy.product.entity.BrandEntity;
-import com.byy.product.entity.CategoryBrandRelationEntity;
-import com.byy.product.entity.CategoryEntity;
-import com.byy.product.vo.BrandResponseVO;
+import com.byy.product.model.entity.BrandEntity;
+import com.byy.product.model.entity.CategoryBrandRelationEntity;
+import com.byy.product.model.entity.CategoryEntity;
+import com.byy.product.model.vo.BrandResponseVO;
 
 import java.util.List;
 import java.util.Map;

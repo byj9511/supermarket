@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.byy.product.entity.CategoryEntity;
+import com.byy.product.model.entity.CategoryEntity;
 import com.byy.product.service.CategoryService;
 import com.byy.common.utils.PageUtils;
 import com.byy.common.utils.R;

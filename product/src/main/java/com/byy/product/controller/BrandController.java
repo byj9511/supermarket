@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.byy.product.entity.BrandEntity;
+import com.byy.product.model.entity.BrandEntity;
 import com.byy.product.service.BrandService;
 import com.byy.common.utils.PageUtils;
 import com.byy.common.utils.R;
@@ -60,6 +60,7 @@ public class BrandController {
      * 保存
      */
     @RequestMapping("/save")
+        //按照数据效验（组）中的添加组的规则对请求体进行数据效验
         public R save( @Validated(AddGroup.class) @RequestBody BrandEntity brand){
 		brandService.save(brand);
 
@@ -70,6 +71,7 @@ public class BrandController {
      * 修改
      */
     @RequestMapping("/update")
+        //按照数据效验（组）中的更新组的规则对请求体进行数据效验
         public R update(@Validated(UpdateGroup.class) @RequestBody BrandEntity brand){
 		brandService.updateById(brand);
         brandService.updateCategoryBrandRelation(brand);

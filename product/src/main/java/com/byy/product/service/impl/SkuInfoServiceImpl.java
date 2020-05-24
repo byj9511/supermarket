@@ -9,7 +9,7 @@ import com.byy.common.utils.PageUtils;
 import com.byy.common.utils.Query;
 
 import com.byy.product.dao.SkuInfoDao;
-import com.byy.product.entity.SkuInfoEntity;
+import com.byy.product.model.entity.SkuInfoEntity;
 import com.byy.product.service.SkuInfoService;
 
 

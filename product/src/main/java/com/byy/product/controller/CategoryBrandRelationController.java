@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.byy.product.vo.BrandResponseVO;
+import com.byy.product.model.vo.BrandResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.byy.product.entity.CategoryBrandRelationEntity;
+import com.byy.product.model.entity.CategoryBrandRelationEntity;
 import com.byy.product.service.CategoryBrandRelationService;
 import com.byy.common.utils.PageUtils;
 import com.byy.common.utils.R;

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.byy.product.entity.ProductAttrValueEntity;
+import com.byy.product.model.entity.ProductAttrValueEntity;
 import com.byy.product.service.ProductAttrValueService;
 import com.byy.common.utils.PageUtils;
 import com.byy.common.utils.R;

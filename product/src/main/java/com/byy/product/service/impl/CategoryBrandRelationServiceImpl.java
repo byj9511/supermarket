@@ -2,9 +2,9 @@ package com.byy.product.service.impl;
 
 import com.byy.product.dao.BrandDao;
 import com.byy.product.dao.CategoryDao;
-import com.byy.product.entity.BrandEntity;
-import com.byy.product.entity.CategoryEntity;
-import com.byy.product.vo.BrandResponseVO;
+import com.byy.product.model.entity.BrandEntity;
+import com.byy.product.model.entity.CategoryEntity;
+import com.byy.product.model.vo.BrandResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ import com.byy.common.utils.PageUtils;
 import com.byy.common.utils.Query;
 
 import com.byy.product.dao.CategoryBrandRelationDao;
-import com.byy.product.entity.CategoryBrandRelationEntity;
+import com.byy.product.model.entity.CategoryBrandRelationEntity;
 import com.byy.product.service.CategoryBrandRelationService;
 
 

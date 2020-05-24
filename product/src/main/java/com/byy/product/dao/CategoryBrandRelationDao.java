@@ -1,7 +1,6 @@
 package com.byy.product.dao;
 
-import com.byy.product.entity.BrandEntity;
-import com.byy.product.entity.CategoryBrandRelationEntity;
+import com.byy.product.model.entity.CategoryBrandRelationEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

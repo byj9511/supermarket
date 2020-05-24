@@ -1,10 +1,9 @@
 package com.byy.product.controller;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
-import com.byy.product.vo.SpuSaveVO;
+import com.byy.product.model.vo.SpuSaveVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.byy.product.entity.SpuInfoEntity;
+import com.byy.product.model.entity.SpuInfoEntity;
 import com.byy.product.service.SpuInfoService;
 import com.byy.common.utils.PageUtils;
 import com.byy.common.utils.R;

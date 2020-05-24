@@ -1,6 +1,5 @@
 package com.byy.product.service.impl;
 
-import com.byy.product.dao.CategoryBrandRelationDao;
 import com.byy.product.service.CategoryBrandRelationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ import com.byy.common.utils.PageUtils;
 import com.byy.common.utils.Query;
 
 import com.byy.product.dao.CategoryDao;
-import com.byy.product.entity.CategoryEntity;
+import com.byy.product.model.entity.CategoryEntity;
 import com.byy.product.service.CategoryService;
 
 

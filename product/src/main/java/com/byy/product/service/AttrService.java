@@ -2,9 +2,9 @@ package com.byy.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.byy.common.utils.PageUtils;
-import com.byy.product.entity.AttrEntity;
-import com.byy.product.vo.AttrRequestVO;
-import com.byy.product.vo.AttrResponseVO;
+import com.byy.product.model.entity.AttrEntity;
+import com.byy.product.model.vo.AttrRequestVO;
+import com.byy.product.model.vo.AttrResponseVO;
 
 import java.util.Map;
 

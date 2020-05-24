@@ -9,7 +9,7 @@ import com.byy.common.utils.PageUtils;
 import com.byy.common.utils.Query;
 
 import com.byy.product.dao.SpuImagesDao;
-import com.byy.product.entity.SpuImagesEntity;
+import com.byy.product.model.entity.SpuImagesEntity;
 import com.byy.product.service.SpuImagesService;
 
 

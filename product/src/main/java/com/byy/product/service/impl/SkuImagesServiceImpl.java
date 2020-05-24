@@ -9,7 +9,7 @@ import com.byy.common.utils.PageUtils;
 import com.byy.common.utils.Query;
 
 import com.byy.product.dao.SkuImagesDao;
-import com.byy.product.entity.SkuImagesEntity;
+import com.byy.product.model.entity.SkuImagesEntity;
 import com.byy.product.service.SkuImagesService;
 
 

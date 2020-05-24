@@ -1,7 +1,7 @@
 /**
   * Copyright 2020 bejson.com 
   */
-package com.byy.product.vo;
+package com.byy.product.model.vo;
 
 /**
  * Auto-generated: 2020-05-12 22:39:18

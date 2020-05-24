@@ -1,6 +1,6 @@
 package com.byy.product.dao;
 
-import com.byy.product.entity.SpuCommentEntity;
+import com.byy.product.model.entity.SpuCommentEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

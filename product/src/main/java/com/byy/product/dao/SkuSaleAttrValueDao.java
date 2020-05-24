@@ -1,6 +1,6 @@
 package com.byy.product.dao;
 
-import com.byy.product.entity.SkuSaleAttrValueEntity;
+import com.byy.product.model.entity.SkuSaleAttrValueEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

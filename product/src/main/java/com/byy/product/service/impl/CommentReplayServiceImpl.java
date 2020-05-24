@@ -9,7 +9,7 @@ import com.byy.common.utils.PageUtils;
 import com.byy.common.utils.Query;
 
 import com.byy.product.dao.CommentReplayDao;
-import com.byy.product.entity.CommentReplayEntity;
+import com.byy.product.model.entity.CommentReplayEntity;
 import com.byy.product.service.CommentReplayService;
 
 

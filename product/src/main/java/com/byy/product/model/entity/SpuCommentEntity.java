@@ -1,4 +1,4 @@
-package com.byy.product.entity;
+package com.byy.product.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;

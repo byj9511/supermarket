@@ -9,7 +9,7 @@ import com.byy.common.utils.PageUtils;
 import com.byy.common.utils.Query;
 
 import com.byy.product.dao.AttrAttrgroupRelationDao;
-import com.byy.product.entity.AttrAttrgroupRelationEntity;
+import com.byy.product.model.entity.AttrAttrgroupRelationEntity;
 import com.byy.product.service.AttrAttrgroupRelationService;
 
 

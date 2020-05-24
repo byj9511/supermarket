@@ -1,22 +1,22 @@
-package com.byy.product.entity;
+package com.byy.product.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
-import java.util.Date;
+
 import lombok.Data;
 
 /**
- * spu图片
+ * spu属性值
  * 
  * @author byy
  * @email 18621711850@163.com
  * @date 2020-04-26 01:02:31
  */
 @Data
-@TableName("pms_spu_images")
-public class SpuImagesEntity implements Serializable {
+@TableName("pms_product_attr_value")
+public class ProductAttrValueEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -25,24 +25,28 @@ public class SpuImagesEntity implements Serializable {
 	@TableId
 	private Long id;
 	/**
-	 * spu_id
+	 * 商品id
 	 */
 	private Long spuId;
 	/**
-	 * 图片名
+	 * 属性id
 	 */
-	private String imgName;
+	private Long attrId;
 	/**
-	 * 图片地址
+	 * 属性名
 	 */
-	private String imgUrl;
+	private String attrName;
+	/**
+	 * 属性值
+	 */
+	private String attrValue;
 	/**
 	 * 顺序
 	 */
-	private Integer imgSort;
+	private Integer attrSort;
 	/**
-	 * 是否默认图
+	 * 快速展示【是否展示在介绍上；0-否 1-是】
 	 */
-	private Integer defaultImg;
+	private Integer quickShow;
 
 }
