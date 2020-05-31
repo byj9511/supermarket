@@ -1,0 +1,12 @@
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+
+sso:
+  server:
+    domain: http://ssoserver.com:4000
+    loginPath: /login
+
+server:
+  port: 4001

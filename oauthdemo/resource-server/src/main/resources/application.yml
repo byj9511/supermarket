@@ -1,15 +1,15 @@
 spring:
   application:
     name: product
-#  cloud:
-#    nacos:
-#      config:
-#        server-addr: 192.168.1.104:8848
+  #  cloud:
+  #    nacos:
+  #      config:
+  #        server-addr: 192.168.1.104:8848
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-#      url: jdbc:mysql://localhost:3306/market_pms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+      url: jdbc:mysql://localhost:3306/market_pms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
       username: root
       password: 50823046
       initial-size: 10
@@ -56,7 +56,7 @@ mybatis-plus:
       logic-not-delete-value: 1 # 逻辑未删除值(默认为 0)
 
 server:
-  port: 9001
+  port: 8082
 logging:
   level:
     com.byy.dao: debug

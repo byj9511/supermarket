@@ -23,7 +23,7 @@ public class ProductExceptionControllerAdvice {
         //返回效验失败的结果
         BindingResult bindingResult = e.getBindingResult();
         HashMap<String,String> errorMap = new HashMap();
-        bindingResult.getFieldErrors().stream().forEach((fieldError -> {
+        bindingResult.getFieldErrors().forEach((fieldError -> {
             errorMap.put(fieldError.getField(), fieldError.getDefaultMessage());
         }));
         //返回异常信息的json
