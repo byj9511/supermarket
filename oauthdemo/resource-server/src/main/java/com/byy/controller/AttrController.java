@@ -32,7 +32,8 @@ public class AttrController {
 
     @RequestMapping("/list")
     public List<AttrEntity> list(@RequestParam Map<String, Object> params){
-        return attrService.queryPage(params);
+        List<AttrEntity> attrEntities = attrService.queryPage(params);
+        return attrEntities;
     }
 
 

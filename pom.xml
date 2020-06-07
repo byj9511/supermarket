@@ -21,6 +21,7 @@
         <module>oauthdemo</module>
         <module>renren-fast</module>
         <module>renren-generator</module>
+        <module>oauthdemo/oauth2-client</module>
     </modules>
     <!--2、编译器版本-->
     <properties>

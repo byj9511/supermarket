@@ -1,6 +1,7 @@
+server:
+  port: 8083
+
 spring:
-  application:
-    name: product
   #  cloud:
   #    nacos:
   #      config:
@@ -9,7 +10,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/market_pms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+      url: jdbc:mysql://localhost:3306/db1?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
       username: root
       password: 50823046
       initial-size: 10
@@ -42,7 +43,7 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
 #mybatis
 mybatis-plus:
-  mapper-locations: classpath*:/mapper/**/*.xml
+  mapper-locations: classpath*:/mapper/*.xml
   #原生配置
   configuration:
     map-underscore-to-camel-case: true
@@ -54,11 +55,9 @@ mybatis-plus:
       id-type: auto
       logic-delete-value: 0 # 逻辑已删除值(默认为 1)
       logic-not-delete-value: 1 # 逻辑未删除值(默认为 0)
-
-server:
-  port: 8082
-logging:
-  level:
-    com.byy.dao: debug
-
-
+encrypt:
+  key-store:
+    location: classpath:mytest.jks
+    secret: mypass
+    alias: mytest
+    password: mypass

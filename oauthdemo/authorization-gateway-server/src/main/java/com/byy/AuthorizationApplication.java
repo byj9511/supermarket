@@ -1,14 +1,13 @@
 package com.byy;
 
-
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
-
 
 @SpringBootApplication
-public class ResourceServerApplication {
+@MapperScan("com.byy.dao")
+public class AuthorizationApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ResourceServerApplication.class,args);
+        SpringApplication.run(AuthorizationApplication.class,args);
     }
 }
