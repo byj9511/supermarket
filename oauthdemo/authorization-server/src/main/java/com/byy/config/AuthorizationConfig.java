@@ -64,7 +64,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
                 .scopes("read_user_info") //作用域
                 .resourceIds("resource1") //资源id
                 .redirectUris("http://localhost:9001/callback") //回调地址
-                .autoApprove(true) ;//自动授权配置
+                .autoApprove(true) ;//自动授权配置,设置为true之后就不用手动点击了。
         // @formatter: on*/
         clients.withClientDetails(clientDetails());
 

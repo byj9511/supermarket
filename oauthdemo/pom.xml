@@ -16,8 +16,9 @@
     <modules>
         <module>ssoserver</module>
         <module>client1</module>
-        <module>authorization-gateway-server</module>
+        <module>authorization-server</module>
         <module>resource-server</module>
         <module>oauth2-client</module>
+        <module>oauth-gateway-demo</module>
     </modules>
 </project>

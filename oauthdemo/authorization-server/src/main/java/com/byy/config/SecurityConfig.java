@@ -53,6 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated() //所有请求都需要通过认证
                 .and()
                 .httpBasic() //Basic登录
+                // 更改为form表单登录
+                //.formLogin()
                 .and()
                 .csrf().disable(); //关跨域保护
     }

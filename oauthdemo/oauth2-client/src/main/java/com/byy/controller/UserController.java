@@ -6,10 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user")
 public class UserController {
 
-    @GetMapping("/getUser")
+    @GetMapping("/getUsers")
     public Object getUser(Authentication authentication) {
         return authentication;
     }
