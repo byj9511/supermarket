@@ -21,6 +21,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        根据用户名查询用户信息
         QueryWrapper<User> queryWrapper = new QueryWrapper<User>().eq("name", username);
         User user = userMapper.selectOne(queryWrapper);
         MyUserDetails userDetails=null;
@@ -31,6 +32,7 @@ public class MyUserDetailsService implements UserDetailsService {
             List<GrantedAuthority> roleAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(String.join(",", roles));
             BeanUtils.copyProperties(user, userDetails);
             userDetails.setAuthorities(roleAuthorities);
+//            返回用户信息
             return userDetails;
         }else {
             throw new UsernameNotFoundException("用户名错误");

@@ -7,7 +7,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/market_ums?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+      url: jdbc:mysql://localhost:3306/market_wms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
       username: root
       password: 50823046
       initial-size: 10
@@ -57,4 +57,4 @@ server:
   port: 9009
 logging:
   level:
-    com.byy.dao: debug
+    com.byy.ware.dao: debug

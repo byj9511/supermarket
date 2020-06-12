@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
@@ -35,7 +36,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
     private JwtAccessTokenConverter accessTokenConverter;
 
     @Autowired
-    UserServiceInMemory userServiceInMemory;
+    private UserServiceInMemory userServiceInMemory;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -54,7 +55,8 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-/*        // @formatter: off
+
+//        1、将客户端的信息直接写死在内存中，用于快速测试
         clients.inMemory()
                 .withClient("client-a") //client端唯一标识
                 .secret(passwordEncoder.encode("client-a-secret")) //客户端的密码，这里的密码应该是加密后的
@@ -65,7 +67,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
                 .resourceIds("resource1") //资源id
                 .redirectUris("http://localhost:9001/callback") //回调地址
                 .autoApprove(true) ;//自动授权配置,设置为true之后就不用手动点击了。
-        // @formatter: on*/
+//        2、从数据库中获取客户端的信息
         clients.withClientDetails(clientDetails());
 
     }
@@ -97,6 +99,5 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
     public ClientDetailsService clientDetails() {
         return new JdbcClientDetailsService(dataSource);
     }
-
 
 }

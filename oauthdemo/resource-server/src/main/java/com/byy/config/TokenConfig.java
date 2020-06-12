@@ -32,17 +32,17 @@ public class TokenConfig {
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
         //1、采用对称加密的方式进行加密
-        accessTokenConverter.setSigningKey(SECRET_KEY);
+        //accessTokenConverter.setSigningKey(SECRET_KEY);
         //2、采用非对称形式加密，私钥在认证服务器，公钥可以直接放在资源服务器，也可以通过/auth/token_key访问获得
-        //ClassPathResource classPathResource = new ClassPathResource("pub.txt");
-        //String publicKey=null;
-        //try {
-        //    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(classPathResource.getInputStream()));
-        //    publicKey=bufferedReader.lines().collect(Collectors.joining("\n"));
-        //} catch (IOException e) {
-        //    e.printStackTrace();
-        //}
-        //accessTokenConverter.setVerifierKey(publicKey);
+        ClassPathResource classPathResource = new ClassPathResource("pub.txt");
+        String publicKey=null;
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(classPathResource.getInputStream()));
+            publicKey=bufferedReader.lines().collect(Collectors.joining("\n"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        accessTokenConverter.setVerifierKey(publicKey);
 
         return accessTokenConverter;
     }

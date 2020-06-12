@@ -31,8 +31,8 @@ public class TokenConfig {
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
-        accessTokenConverter.setSigningKey(SECRET_KEY);//配置JWT使用的秘钥
-        //accessTokenConverter.setKeyPair(keyPair());
+        //accessTokenConverter.setSigningKey(SECRET_KEY);//配置JWT使用的秘钥
+        accessTokenConverter.setKeyPair(keyPair());
         return accessTokenConverter;
     }
     private KeyPair keyPair() {

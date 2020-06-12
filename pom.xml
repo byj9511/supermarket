@@ -147,22 +147,7 @@
                 <version>0.11.1</version>
                 <scope>runtime</scope>
             </dependency>
-            <dependency>
-                <groupId>org.springframework.security.oauth</groupId>
-                <artifactId>spring-security-oauth2</artifactId>
-                <version>2.4.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-jwt</artifactId>
-                <version>1.1.0.RELEASE</version>
-            </dependency>
-            <!--数据库框架导入-->
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>2.1.1</version>
-            </dependency>
+
             <!--            数据源-->
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -211,7 +196,11 @@
                 <artifactId>shiro-spring</artifactId>
                 <version>1.4.0</version>
             </dependency>
-
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>5.3.7</version>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>

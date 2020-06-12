@@ -1,5 +1,6 @@
 package com.byy.coupon.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -18,9 +19,22 @@ public class PurchaseDetailServiceImpl extends ServiceImpl<PurchaseDetailDao, Pu
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+        QueryWrapper<PurchaseDetailEntity> queryWrapper = new QueryWrapper<>();
+        String key = (String) params.get("key");
+        String status = (String) params.get("status");
+        String wareId = (String) params.get("wareId");
+        if (!StrUtil.isEmpty(key)){
+            queryWrapper.and(obj->obj.eq("sku_id", key).or().eq("purchase_id", key));
+        }
+        if (!StrUtil.isEmpty(status)){
+            queryWrapper.eq("status", status);
+        }
+        if (!StrUtil.isEmpty(wareId)){
+            queryWrapper.eq("ware_id", wareId);
+        }
         IPage<PurchaseDetailEntity> page = this.page(
                 new Query<PurchaseDetailEntity>().getPage(params),
-                new QueryWrapper<PurchaseDetailEntity>()
+                queryWrapper
         );
 
         return new PageUtils(page);

@@ -1,24 +1,38 @@
 server:
-  port: 9527
-  servlet:
-    session:
-      cookie:
-        name: OAUTH2-CLIENT-SESSIONID #防止Cookie冲突，冲突会导致登录验证不通过
-oauth2-server-url: http://localhost:8083
+  port: 80
+
 spring:
   application:
     name: oauth2-client
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: product
+          uri: lb://product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            #https://www.cnblogs.com/yw0219/p/8047938.html 正则表达式
+            - RewritePath=/api/(?<path>.*),/$\{path}
+
+
+oauth2-server-url: http://localhost:8083
+
 security:
   oauth2:
     client:
       client-id: client-a
       client-secret: client-a-secret
-      access-token-uri: http://localhost:8088/oauth/token
-      user-authorization-uri: http://localhost:8088/oauth/authorize
+      access-token-uri: ${oauth2-server-url}/oauth/token
+      user-authorization-uri: ${oauth2-server-url}/oauth/authorize
       scope: read,write
-      pre-established-redirect-uri: http://localhost:8080/session
+      pre-established-redirect-uri: ${oauth2-server-url}/session
 #      此处特别重要一定要配置，否则不会生效，配置了自定义的回调地址就必须将默认的回调禁止，原因不做过多说明。
       use-current-uri: false
     resource:
       user-info-uri: http://localhost:8088/user
       prefer-token-info: false
+
