@@ -9,7 +9,7 @@ import com.byy.common.utils.PageUtils;
 import com.byy.common.utils.Query;
 
 import com.byy.coupon.dao.WareOrderTaskDetailDao;
-import com.byy.coupon.entity.WareOrderTaskDetailEntity;
+import com.byy.coupon.model.entity.WareOrderTaskDetailEntity;
 import com.byy.coupon.service.WareOrderTaskDetailService;
 
 

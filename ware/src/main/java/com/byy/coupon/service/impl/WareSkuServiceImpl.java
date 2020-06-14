@@ -10,7 +10,7 @@ import com.byy.common.utils.PageUtils;
 import com.byy.common.utils.Query;
 
 import com.byy.coupon.dao.WareSkuDao;
-import com.byy.coupon.entity.WareSkuEntity;
+import com.byy.coupon.model.entity.WareSkuEntity;
 import com.byy.coupon.service.WareSkuService;
 
 

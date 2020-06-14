@@ -1,6 +1,6 @@
 package com.byy.coupon.dao;
 
-import com.byy.coupon.entity.WareSkuEntity;
+import com.byy.coupon.model.entity.WareSkuEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

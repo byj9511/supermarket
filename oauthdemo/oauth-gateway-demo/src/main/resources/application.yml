@@ -21,18 +21,18 @@ spring:
 
 oauth2-server-url: http://localhost:8083
 
-security:
-  oauth2:
-    client:
-      client-id: client-a
-      client-secret: client-a-secret
-      access-token-uri: ${oauth2-server-url}/oauth/token
-      user-authorization-uri: ${oauth2-server-url}/oauth/authorize
-      scope: read,write
-      pre-established-redirect-uri: ${oauth2-server-url}/session
-#      此处特别重要一定要配置，否则不会生效，配置了自定义的回调地址就必须将默认的回调禁止，原因不做过多说明。
-      use-current-uri: false
-    resource:
-      user-info-uri: http://localhost:8088/user
-      prefer-token-info: false
+#security:
+#  oauth2:
+#    client:
+#      client-id: client-a
+#      client-secret: client-a-secret
+#      access-token-uri: ${oauth2-server-url}/oauth/token
+#      user-authorization-uri: ${oauth2-server-url}/oauth/authorize
+#      scope: read,write
+#      pre-established-redirect-uri: ${oauth2-server-url}/session
+##      此处特别重要一定要配置，否则不会生效，配置了自定义的回调地址就必须将默认的回调禁止，原因不做过多说明。
+#      use-current-uri: false
+#    resource:
+#      user-info-uri: http://localhost:8088/user
+#      prefer-token-info: false
 

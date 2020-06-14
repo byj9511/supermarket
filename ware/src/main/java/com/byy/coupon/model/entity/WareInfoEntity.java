@@ -1,22 +1,22 @@
-package com.byy.coupon.entity;
+package com.byy.coupon.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
-import java.util.Date;
+
 import lombok.Data;
 
 /**
- * 库存工作单
+ * 仓库信息
  * 
  * @author byy
  * @email 18621711850@163.com
  * @date 2020-06-11 00:06:59
  */
 @Data
-@TableName("wms_ware_order_task_detail")
-public class WareOrderTaskDetailEntity implements Serializable {
+@TableName("wms_ware_info")
+public class WareInfoEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -25,20 +25,16 @@ public class WareOrderTaskDetailEntity implements Serializable {
 	@TableId
 	private Long id;
 	/**
-	 * sku_id
+	 * 仓库名
 	 */
-	private Long skuId;
+	private String name;
 	/**
-	 * sku_name
+	 * 仓库地址
 	 */
-	private String skuName;
+	private String address;
 	/**
-	 * 购买个数
+	 * 区域编码
 	 */
-	private Integer skuNum;
-	/**
-	 * 工作单id
-	 */
-	private Long taskId;
+	private String areacode;
 
 }

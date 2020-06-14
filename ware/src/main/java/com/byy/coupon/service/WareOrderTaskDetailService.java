@@ -2,7 +2,7 @@ package com.byy.coupon.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.byy.common.utils.PageUtils;
-import com.byy.coupon.entity.WareOrderTaskDetailEntity;
+import com.byy.coupon.model.entity.WareOrderTaskDetailEntity;
 
 import java.util.Map;
 

@@ -1,3 +1,4 @@
+/*
 package com.byy.filter;
 
 import org.apache.commons.lang3.StringUtils;
@@ -11,6 +12,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpRequestDecorator;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.jwt.JwtHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
@@ -27,24 +29,26 @@ public class TokenFilter implements GlobalFilter, OrderedFilter {
     //需要从url中获取token
     private String[] urlToken = {"/ljl-server-chat/websocket"};
 
-    /**
+    */
+/**
      * 过滤器
      *
      * @param exchange
      * @param chain
      * @return
-     */
+     *//*
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        String url = exchange.getRequest().getURI().getPath();
-        System.out.println(url);
+        String uri = exchange.getRequest().getURI().getPath();
+        System.out.println(uri);
         //跳过不需要验证的路径
-        if (null != skipAuthUrls && Arrays.asList(skipAuthUrls).contains(url)) {
+        if (null != skipAuthUrls && Arrays.asList(skipAuthUrls).contains(uri)) {
             return chain.filter(exchange);
         }
         //获取token
         String token = exchange.getRequest().getHeaders().getFirst("Authorization");
-        if(null != urlToken && Arrays.asList(urlToken).contains(url)){
+        if(null != urlToken && Arrays.asList(urlToken).contains(uri)){
             //该方法需要修改
             String tokens[] =  exchange.getRequest().getURI().getQuery().split("=");
             token = tokens[1];
@@ -56,7 +60,7 @@ public class TokenFilter implements GlobalFilter, OrderedFilter {
             //有token
             try {
                 //解密token
-                Claims jwt = getTokenBody(token);
+                Claims jwt = JwtHelper.decode(token);
 
                 ServerHttpRequest oldRequest= exchange.getRequest();
                 URI uri = oldRequest.getURI();
@@ -77,7 +81,8 @@ public class TokenFilter implements GlobalFilter, OrderedFilter {
                 };
 
                 return chain.filter(exchange.mutate().request(newRequest).build());
-                /*System.out.println(jwt.toString());
+                */
+/*System.out.println(jwt.toString());
                 //RSA公钥验签
                 String jwtData[] =  token.split("\\.");
                 Boolean isSgin = RSAUtil.verify((jwtData[0]+"."+jwtData[1]).getBytes(),jwtData[2]);
@@ -85,7 +90,8 @@ public class TokenFilter implements GlobalFilter, OrderedFilter {
                     return chain.filter(exchange);
                 }else{
                     return returnAuthFail(exchange,"token验签失败");
-                }*/
+                }*//*
+
             }catch (ExpiredJwtException e) {
                 e.printStackTrace();
                 return returnAuthFail(exchange,"token超时");
@@ -96,12 +102,14 @@ public class TokenFilter implements GlobalFilter, OrderedFilter {
         }
     }
 
-    /**
+    */
+/**
      * 返回校验失败
      *
      * @param exchange
      * @return
-     */
+     *//*
+
     private Mono<Void> returnAuthFail(ServerWebExchange exchange,String message) {
         ServerHttpResponse serverHttpResponse = exchange.getResponse();
         serverHttpResponse.setStatusCode(HttpStatus.UNAUTHORIZED);
@@ -123,3 +131,4 @@ public class TokenFilter implements GlobalFilter, OrderedFilter {
         return -201;
     }
 }
+*/

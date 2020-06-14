@@ -4,7 +4,7 @@
 <mapper namespace="com.byy.coupon.dao.PurchaseDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.byy.coupon.entity.PurchaseEntity" id="purchaseMap">
+    <resultMap type="com.byy.coupon.model.entity.PurchaseEntity" id="purchaseMap">
         <result property="id" column="id"/>
         <result property="assigneeId" column="assignee_id"/>
         <result property="assigneeName" column="assignee_name"/>

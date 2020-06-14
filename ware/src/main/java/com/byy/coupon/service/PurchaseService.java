@@ -2,7 +2,8 @@ package com.byy.coupon.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.byy.common.utils.PageUtils;
-import com.byy.coupon.entity.PurchaseEntity;
+import com.byy.coupon.model.entity.PurchaseEntity;
+import com.byy.coupon.model.vo.MergeVO;
 
 import java.util.Map;
 
@@ -16,5 +17,9 @@ import java.util.Map;
 public interface PurchaseService extends IService<PurchaseEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    PageUtils queryUnreceivePurchasePage(Map<String, Object> params);
+
+    void MergePurchase(MergeVO mergeVO);
 }
 
