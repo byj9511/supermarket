@@ -8,7 +8,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @SpringBootApplication
 @EnableAspectJAutoProxy(exposeProxy = true)
-@MapperScan("com.byy.product.dao")
 @EnableFeignClients(basePackages = "com.byy.product.feign")
 public class ProductMainApplication {
     public static void main(String[] args) {

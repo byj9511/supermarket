@@ -34,15 +34,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        1、在内存中保存用户信息，用于快速测试
-/*        auth.inMemoryAuthentication()
+        auth.inMemoryAuthentication()
                 .withUser("admin")
                 .password(passwordEncoder().encode("admin"))
                 //.authorities(Collections.emptyList());
-                .authorities("read","write");*/
+                .authorities("read","write");
 //        2、实现接口，还是将用户在内存中写死
 //        auth.userDetailsService(userServiceInMemory).passwordEncoder(passwordEncoder());
         //3、用数据库保存用户信息
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+//        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.byy.config;
 
+import com.byy.auth.MyJwtAccessToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.bootstrap.encrypt.KeyProperties;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +31,7 @@ public class TokenConfig {
 
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
+        JwtAccessTokenConverter accessTokenConverter = new MyJwtAccessToken();
         //accessTokenConverter.setSigningKey(SECRET_KEY);//配置JWT使用的秘钥
         accessTokenConverter.setKeyPair(keyPair());
         return accessTokenConverter;

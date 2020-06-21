@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@FeignClient("coupon")
+@FeignClient("ware")
 public interface CouponFeignService {
 
     @RequestMapping("coupon/spubounds/save")
