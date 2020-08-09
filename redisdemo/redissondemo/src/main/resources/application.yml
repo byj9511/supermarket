@@ -1,0 +1,8 @@
+server:
+  port: 8079
+
+product:
+  threadpool:
+    corePoolSize: 5
+    maximumPoolSize: 10
+    workQueue: 5

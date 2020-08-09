@@ -66,9 +66,10 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
                 .scopes("read_user_info") //作用域
                 .resourceIds("resource1") //资源id
                 .redirectUris("http://localhost:9001/callback") //回调地址
+//                /oauth/token_key jwt非对称加密获取公钥的uri
                 .autoApprove(true) ;//自动授权配置,设置为true之后就不用手动点击了。
-//        2、从数据库中获取客户端的信息
-        clients.withClientDetails(clientDetails());
+////        2、从数据库中获取客户端的信息
+//        clients.withClientDetails(clientDetails());
 
     }
     @Autowired
@@ -84,7 +85,9 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
         enhancerChain.setTokenEnhancers(delegates);
         endpoints.authenticationManager(authenticationManager)
                 .tokenStore(tokenStore) //配置令牌存储策略
+//                token转化为jwt
                 .accessTokenConverter(accessTokenConverter)
+//                token进行扩展
                 .tokenEnhancer(enhancerChain)
 //                端点的访问方式
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)

@@ -66,11 +66,12 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     @Transactional
     @Override
     public void saveSpuDetails(SpuSaveVO spuSaveVO) {
-    //   保存spu基本信息 spu_info
+//        获取暴露的代理类
         SpuInfoServiceImpl spuInfoServiceProxy = (SpuInfoServiceImpl) AopContext.currentProxy();
         SpuInfoEntity spuInfoEntity = new SpuInfoEntity();
 
         BeanUtils.copyProperties(spuSaveVO, spuInfoEntity);
+        //   保存spu基本信息 spu_info
         //保存之后，实体类中自增id以及自动填充的属性（create、update的time）都会进行赋值
         //第一个保存是最重要的，一定要成功(REQUIRE)，如果失败所有操作都进行回滚
         spuInfoServiceProxy.save(spuInfoEntity);
@@ -128,6 +129,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         return new PageUtils(page);
     }
 
+//    允许这一事务单独成功
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     void saveSkuDetails(SpuSaveVO spuSaveVO, SpuInfoEntity spuInfoEntity) {
         //    保存spu的sku信息 sku_info

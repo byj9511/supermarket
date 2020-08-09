@@ -20,6 +20,7 @@ public class MyJwtAccessToken extends JwtAccessTokenConverter {
      * @return
      */
     @Override
+//    token增强，可在
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
         if (accessToken instanceof DefaultOAuth2AccessToken) {
             //((DefaultOAuth2AccessToken) accessToken).setRefreshToken();

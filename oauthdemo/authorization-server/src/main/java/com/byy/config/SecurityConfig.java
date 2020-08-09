@@ -26,11 +26,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     MyUserDetailsService userDetailsService;
     @Autowired
     UserServiceInMemory userServiceInMemory;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+//    配置认证信息
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        1、在内存中保存用户信息，用于快速测试
@@ -38,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("admin")
                 .password(passwordEncoder().encode("admin"))
                 //.authorities(Collections.emptyList());
-                .authorities("read","write");
+                .authorities("read", "write");
 //        2、实现接口，还是将用户在内存中写死
 //        auth.userDetailsService(userServiceInMemory).passwordEncoder(passwordEncoder());
         //3、用数据库保存用户信息
@@ -68,9 +70,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //    manager.createUser(User.withUsername("demoUser2").password("123456").authorities("USER").build());
     //    return manager;
     //}
+
     /**
      * 需要配置这个支持password模式
      * support password grant type
+     *
      * @return
      * @throws Exception
      */

@@ -1,9 +1,12 @@
 package com.byy.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.byy.product.model.entity.ProductAttrValueEntity;
 import com.byy.product.model.vo.AttrRequestVO;
+import com.byy.product.service.ProductAttrValueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +34,15 @@ public class AttrController {
     @Autowired
     private AttrService attrService;
 
+    @Autowired
+    ProductAttrValueService productAttrValueService;
+
+
+    @RequestMapping("/base/listforspu/{spuid}")
+    public R baseAttrList(@PathVariable("spuid")Long spuId){
+        List<ProductAttrValueEntity> productAttrValueEntities=productAttrValueService.getBySpuId(spuId);
+        return R.ok().put("data",productAttrValueEntities);
+    }
     /**
      * 列表
      */
@@ -77,6 +89,12 @@ public class AttrController {
         public R update(@RequestBody AttrRequestVO attrRequestVO){
 		attrService.updateAttr(attrRequestVO);
 
+        return R.ok();
+    }
+
+    @RequestMapping("/update/{spuid}")
+    public R updateSpuAttr(@PathVariable("spuid")Long spuid,@RequestBody List<ProductAttrValueEntity> entities){
+        productAttrValueService.updateSpuAttr(spuid,entities);
         return R.ok();
     }
 

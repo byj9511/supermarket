@@ -70,16 +70,13 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
     @Override
     public List<BrandResponseVO> getSelectedBrand(Long catId) {
         List<CategoryBrandRelationEntity> relationEntities = this.baseMapper.selectList(new QueryWrapper<CategoryBrandRelationEntity>().eq("catelog_id", catId));
-        List<Long> brandIds = relationEntities.stream().map(relationEntity -> {
-            return relationEntity.getBrandId();
-        }).collect(Collectors.toList());
+        List<Long> brandIds = relationEntities.stream().map(CategoryBrandRelationEntity::getBrandId).collect(Collectors.toList());
         List<BrandEntity> brandEntities = brandDao.selectBatchIds(brandIds);
-        List<BrandResponseVO> BrandVOs = brandEntities.stream().map(brandEntity -> {
+        return brandEntities.stream().map(brandEntity -> {
             BrandResponseVO brandResponseVO = new BrandResponseVO();
             brandResponseVO.setLabel(brandEntity.getName());
             brandResponseVO.setValue(brandEntity.getBrandId());
             return brandResponseVO;
         }).collect(Collectors.toList());
-        return BrandVOs;
     }
 }

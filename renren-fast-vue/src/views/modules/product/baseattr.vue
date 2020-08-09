@@ -91,8 +91,7 @@
             header-align="center"
             align="center"
             width="150"
-            label="操作"
-          >
+            label="操作">
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.attrId)">修改</el-button>
               <el-button type="text" size="small" @click="deleteHandle(scope.row.attrId)">删除</el-button>
@@ -124,9 +123,9 @@
   // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
   // 例如：import 《组件名称》 from '《组件路径》';
   import Category from '../components/category'
-import AddOrUpdate from './attr-add-or-update'
+  import AddOrUpdate from './attr-add-or-update'
 
-export default {
+  export default {
     // import引入的组件需要注入到对象中才能使用
     components: {Category, AddOrUpdate},
     props: {
@@ -135,7 +134,7 @@ export default {
         default: 1
       }
     },
-    data () {
+    data() {
       return {
         catId: 0,
         type: 1,
@@ -150,25 +149,25 @@ export default {
         dataListSelections: [],
         addOrUpdateVisible: false
       }
-  },
-    activated () {
+    },
+    activated() {
       this.catId = -1
       this.getDataList()
-  },
+    },
     methods: {
       // 感知树节点被点击
-      treenodeclick (data, node, component) {
+      treenodeclick(data, node, component) {
         if (node.level === 3) {
           this.catId = data.catId
           this.getDataList() // 重新查询
         }
       },
-      getAllDataList () {
+      getAllDataList() {
         this.catId = -1
         this.getDataList()
       },
       // 获取数据列表
-      getDataList () {
+      getDataList() {
         this.dataListLoading = true
         let type = this.attrtype == 0 ? 'sale' : 'base'
         this.$http({
@@ -191,29 +190,29 @@ export default {
         })
       },
       // 每页数
-      sizeChangeHandle (val) {
+      sizeChangeHandle(val) {
         this.pageSize = val
         this.pageIndex = 1
         this.getDataList()
       },
       // 当前页
-      currentChangeHandle (val) {
+      currentChangeHandle(val) {
         this.pageIndex = val
         this.getDataList()
       },
       // 多选
-      selectionChangeHandle (val) {
+      selectionChangeHandle(val) {
         this.dataListSelections = val
       },
       // 新增 / 修改
-      addOrUpdateHandle (id) {
+      addOrUpdateHandle(id) {
         this.addOrUpdateVisible = true
         this.$nextTick(() => {
           this.$refs.addOrUpdate.init(id)
         })
       },
       // 删除
-      deleteHandle (id) {
+      deleteHandle(id) {
         var ids = id
           ? [id]
           : this.dataListSelections.map(item => {

@@ -36,6 +36,7 @@ public class TokenConfig {
         //2、采用非对称形式加密，私钥在认证服务器，公钥可以直接放在资源服务器，也可以通过/auth/token_key访问获得
         ClassPathResource classPathResource = new ClassPathResource("pub.txt");
         String publicKey=null;
+//        手动读取public key
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(classPathResource.getInputStream()));
             publicKey=bufferedReader.lines().collect(Collectors.joining("\n"));

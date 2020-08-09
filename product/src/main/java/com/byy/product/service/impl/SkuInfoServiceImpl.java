@@ -55,7 +55,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
             long l = Long.parseLong(catelogId);
             skuInfoEntityQueryWrapper.like("catelog_id", l);
         }
-        if (!Strings.isEmpty(max)&& new BigDecimal(max).compareTo(BigDecimal.valueOf(0))==1){
+        if (!Strings.isEmpty(max)&& new BigDecimal(max).compareTo(BigDecimal.valueOf(0)) > 0){
             skuInfoEntityQueryWrapper.le("price", max);
         }
         if (!Strings.isEmpty(catelogId)){

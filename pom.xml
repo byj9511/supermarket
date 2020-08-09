@@ -22,6 +22,7 @@
         <module>renren-fast</module>
         <module>renren-generator</module>
         <module>oauthdemo/oauth2-client</module>
+        <module>redisdemo</module>
     </modules>
     <!--2、编译器版本-->
     <properties>
@@ -174,12 +175,7 @@
                 <version>2.0.3</version>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.18.12</version>
-            </dependency>
+
             <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>

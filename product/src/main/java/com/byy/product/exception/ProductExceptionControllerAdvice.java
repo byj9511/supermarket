@@ -17,6 +17,7 @@ import java.util.HashMap;
 @RestControllerAdvice(basePackages = "com.byy.product.controller")
 public class ProductExceptionControllerAdvice {
 
+//    处理数据效验的异常
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public R handleValidationException(MethodArgumentNotValidException e ){
         log.error("发生错误，错误消息为{}，错误类型为{}", e.getMessage(),e.getClass());

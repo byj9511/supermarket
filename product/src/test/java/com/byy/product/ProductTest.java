@@ -4,14 +4,22 @@ package com.byy.product;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.PutObjectRequest;
+import com.sun.xml.internal.ws.util.CompletedFuture;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ThreadPoolExecutor;
 
+@RunWith(SpringRunner.class)
 @SpringBootTest
 public class ProductTest {
     @Test
@@ -50,5 +58,40 @@ public class ProductTest {
     @Test
     void test2(){
         System.out.println(1);
+    }
+
+    @Autowired
+    ApplicationContext applicationContext;
+    @Test
+    public void demo2(){
+        //final boolean mainThreadPoolExecutor = applicationContext.containsBean("mainThreadPoolExecutor");
+        System.out.println("demo2");
+        final ThreadPoolExecutor mainThreadPoolExecutor = (ThreadPoolExecutor) applicationContext.getBean("mainThreadPoolExecutor");
+        final CompletableFuture<Integer> taskA = CompletableFuture.supplyAsync(() -> {
+            System.out.println("task A");
+            return 1;
+        }, mainThreadPoolExecutor);
+        final CompletableFuture<Integer> taskB = CompletableFuture.supplyAsync(() -> {
+            System.out.println("task B");
+            return 2;
+        }, mainThreadPoolExecutor);
+        final CompletableFuture<String> taskC = CompletableFuture.supplyAsync(() -> {
+            System.out.println("task C");
+            return "finish";
+        }, mainThreadPoolExecutor);
+        final CompletableFuture<Void> all = CompletableFuture.allOf(taskA, taskB, taskC);
+        all.join();
+        System.out.println("demo2...finish");
+    }
+
+    @Test
+    public void demo5()  {
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        throw new RuntimeException("自定义异常");
     }
 }
